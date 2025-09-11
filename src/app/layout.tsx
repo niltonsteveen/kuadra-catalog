@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Manrope, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
+import { ThemeToggle } from "@/components/theme-toggle";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const manrope = Manrope({ subsets: ["latin"], weight: ["400", "600"], variable: "--kuadra-font-sans" });
+const plexMono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400"], variable: "--kuadra-font-mono" });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,11 +17,43 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="es">
+      <head>
+        {/* Script de preferencia de tema + overrides de estilo (sin UI) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(() => {try {
+  const K='theme';
+  const S='style';
+  const C='primaryColor';
+  const R='radius';
+  const H=new Date().getHours();
+  const isNight=(H<7||H>=19);
+  let mode=localStorage.getItem(K);
+  if(mode!=='light'&&mode!=='dark'&&mode!=='auto'){mode='auto';}
+  const effective = mode==='dark' ? 'dark' : mode==='light' ? 'light' : (isNight?'dark':'light');
+  const root=document.documentElement;
+  if(effective==='dark'){root.classList.add('dark');} else {root.classList.remove('dark');}
+  // Overrides de color/radio
+  const pc=localStorage.getItem(C); if(pc){root.style.setProperty('--kuadra-color-primary-500', pc);}    
+  const rd=localStorage.getItem(R); if(rd){root.style.setProperty('--radius-md', rd);}    
+  // Estilo (modern/classic) y tipografía
+  const st=localStorage.getItem(S);
+  const applyStyle = () => {
+    const body=document.body; if(!body) return;
+    body.classList.remove('font-sans','font-mono');
+    body.classList.add(st==='clasico'?'font-mono':'font-sans');
+    root.classList.remove('modern','classic');
+    root.classList.add(st==='clasico'?'classic':'modern');
+  };
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded', applyStyle);} else {applyStyle();}
+} catch(_){}})();`,
+          }}
+        />
+      </head>
+      <body className={`${manrope.variable} ${plexMono.variable} font-sans antialiased`}>
         {children}
+        <ThemeToggle />
       </body>
     </html>
   );

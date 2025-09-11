@@ -1,26 +1,33 @@
 @import "tailwindcss";
 
+
+/* Dark mode manual via clase `.dark` (en v4 se redefine la variante) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Variantes de estilo (modern/classic) para activar utilidades como modern:px-6 classic:px-0 */
+@custom-variant modern (&:where(.modern, .modern *));
+@custom-variant classic (&:where(.classic, .classic *));
+
+
+/* Tokens base del diseño (theme variables) */
+@theme {
+  /* Tipografías: utilidades `font-sans`, `font-mono`, etc. */
+  --font-sans: var(--kuadra-font-sans, Manrope, ui-sans-serif, system-ui);
+  --font-mono: var(--kuadra-font-mono, "IBM Plex Mono", ui-monospace, monospace);
+
+  /* Color primario semántico; utilidades: bg-primary-500 si defines escala o usa utilidades arbit. */
+  --color-primary-500: oklch(0.65 0.20 300); /* violeta por defecto */
+  --radius-md: 0.75rem;
+}
+
+
+/* Variables regulares (no crean utilidades) para facilitar overrides dinámicos por tenant */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --kuadra-color-primary-500: oklch(0.65 0.20 300);
+  --kuadra-font-sans: Manrope, ui-sans-serif, system-ui;
+  --kuadra-font-mono: "IBM Plex Mono", ui-monospace, monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+/* Defaults por estilo (sin enviar tokens en el mock) */
+html.modern { --radius-md: 0.75rem; }
+html.classic { --radius-md: 0px; }
