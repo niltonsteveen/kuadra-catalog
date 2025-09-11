@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { headers } from "next/headers";
 
 export default async function TenantLayout({
@@ -11,7 +12,7 @@ export default async function TenantLayout({
   const { tenant } = await params;
 
   const CONFIG_URL = process.env.NEXT_PUBLIC_MOCK_CONFIG_URL || "/api/mock-config";
-  const h = headers();
+  const h = await headers();
   const proto = h.get("x-forwarded-proto") ?? "http";
   const host = h.get("host") ?? "localhost:3000";
   const base = `${proto}://${host}`;
@@ -66,8 +67,8 @@ export default async function TenantLayout({
         <div className="mx-auto max-w-5xl p-4 flex items-center justify-between">
           <h1 className="text-xl font-medium">Catálogo · {tenant}</h1>
           <nav className="text-sm space-x-4">
-            <a className="text-blue-600 underline" href={`/${tenant}`}>Inicio</a>
-            <a className="text-blue-600 underline" href="/design-system">Design System</a>
+            <Link className="text-blue-600 underline" href={`/${tenant}`}>Inicio</Link>
+            <Link className="text-blue-600 underline" href="/design-system">Design System</Link>
           </nav>
         </div>
       </header>

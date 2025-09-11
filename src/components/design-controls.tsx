@@ -9,7 +9,7 @@ export function DesignControls(props: {
   initial: {
     primaryColor?: string;
     style?: string;
-    mode?: Mode;
+    mode?: string;
     typography?: { sans?: string; heading?: string };
     tokens?: { radius?: string };
   };
@@ -17,7 +17,8 @@ export function DesignControls(props: {
   const { initial } = props;
   const [primaryColor, setPrimaryColor] = useState(initial.primaryColor || "oklch(0.65 0.20 300)");
   const [style, setStyle] = useState<StyleKind>((initial.style === "clasico" ? "clasico" : "moderno"));
-  const [mode, setMode] = useState<Mode>(initial.mode ?? "auto");
+  const toMode = (val: unknown): Mode => (val === "light" || val === "dark" || val === "auto" ? (val as Mode) : "auto");
+  const [mode, setMode] = useState<Mode>(toMode(initial.mode));
 
   const radius = useMemo(() => (style === "clasico" ? "0px" : (initial.tokens?.radius || "0.75rem")), [style, initial.tokens?.radius]);
   const typography = useMemo(() => (
@@ -52,16 +53,26 @@ export function DesignControls(props: {
         root.classList.remove('modern','classic');
         root.classList.add(style === 'clasico' ? 'classic' : 'modern');
       };
-      if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", apply); else apply();
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", apply);
+      } else {
+        apply();
+      }
     } catch {}
   }, [style]);
 
   useEffect(() => {
     try {
       localStorage.setItem("theme", mode);
-      const H=new Date().getHours(); const isNight=(H<7||H>=19);
+      const H=new Date().getHours();
+      const isNight=(H<7||H>=19);
       const eff = mode==='dark'?'dark':mode==='light'?'light':(isNight?'dark':'light');
-      const root=document.documentElement; eff==='dark'?root.classList.add('dark'):root.classList.remove('dark');
+      const root=document.documentElement;
+      if (eff === 'dark') {
+        root.classList.add('dark');
+      } else {
+        root.classList.remove('dark');
+      }
     } catch {}
   }, [mode]);
 

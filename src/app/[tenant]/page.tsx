@@ -7,7 +7,7 @@ export default async function TenantHome({
 
   const CONFIG_URL = process.env.NEXT_PUBLIC_MOCK_CONFIG_URL || "/api/mock-config";
   const { headers } = await import("next/headers");
-  const h = headers();
+  const h = await headers();
   const proto = h.get("x-forwarded-proto") ?? "http";
   const host = h.get("host") ?? "localhost:3000";
   const base = `${proto}://${host}`;
