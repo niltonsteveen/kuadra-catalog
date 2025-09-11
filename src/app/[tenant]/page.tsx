@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default async function TenantHome({
   params,
 }: {
@@ -29,11 +31,13 @@ export default async function TenantHome({
 
       {/* Banner si existe */}
       {config?.images?.banner ? (
-        <div className="overflow-hidden rounded-md border">
-          <img
+        <div className="overflow-hidden rounded-md border relative h-48">
+          <Image
             src={config.images.banner}
             alt="Banner del comercio"
-            className="w-full h-48 object-cover"
+            fill
+            priority
+            className="object-cover"
           />
         </div>
       ) : (
@@ -45,10 +49,13 @@ export default async function TenantHome({
       {/* Logo si existe */}
       <div className="flex items-center gap-4">
         {config?.images?.logo ? (
-          <img
+          <Image
             src={config.images.logo}
             alt="Logo del comercio"
+            width={192}
+            height={48}
             className="h-12 w-auto"
+            priority
           />
         ) : (
           <div className="h-12 w-12 rounded-md border bg-gray-100/50 flex items-center justify-center text-gray-500 text-xs">

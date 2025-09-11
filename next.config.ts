@@ -5,6 +5,14 @@ const nextConfig: NextConfig = {
     // Force Turbopack to treat this package as the root
     root: __dirname,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.kuadra.com",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

@@ -27,6 +27,11 @@ NEXT_PUBLIC_MOCK_CONFIG_URL=/api/mock-config
 - `/{tenant}` — Home del catálogo para un comercio (placeholders)
 - `/api/mock-config` — Endpoint público con configuración mock (color, estilo, modo, tipografías)
 
+### Imágenes
+- Uso de `next/image` en páginas del tenant para banner y logo.
+- Remotos permitidos en `next.config.ts` → `images.remotePatterns`:
+  - `https://cdn.kuadra.com/*` (ajusta el dominio si cambia tu CDN)
+
 ### Estilos y theming
 - Tailwind v4 importado en `globals.css` con tokens base; sin `tailwind.config.js`.
 - Variantes personalizadas:
