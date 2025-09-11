@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Kuadra Catalog
 
-## Getting Started
+Next.js 15 + React 19 + App Router + TypeScript + Tailwind v4, multi‑tenant y página pública de Design System.
 
-First, run the development server:
+### Requisitos
+- Node 20/22
+- pnpm (Corepack)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Variables de entorno
+Crear `.env.local`:
+
+```
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_MOCK_CONFIG_URL=/api/mock-config
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Scripts
+- `pnpm dev` — desarrollo (Turbopack)
+- `pnpm build` — build prod (Turbopack)
+- `pnpm start` — servidor prod
+- `pnpm lint` — ESLint
+- `pnpm typecheck` — TypeScript (no emite)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Rutas principales
+- `/` — Landing marketing
+- `/design-system` — Página pública para visualizar/editar tokens (sin componentes reales)
+- `/{tenant}` — Home del catálogo para un comercio (placeholders)
+- `/api/mock-config` — Endpoint público con configuración mock (color, estilo, modo, tipografías)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Estilos y theming
+- Tailwind v4 importado en `globals.css` con tokens base; sin `tailwind.config.js`.
+- Variantes personalizadas:
+  - `dark:` (controlada por `.dark` en `<html>`)
+  - `modern:` / `classic:` (controladas por `.modern` / `.classic` en `<html>`)
+- Tokens por estilo:
+  - `html.modern { --radius-md: 0.75rem }`
+  - `html.classic { --radius-md: 0px }`
+- Tipografías con `next/font/google`:
+  - Manrope (`--kuadra-font-sans`) y IBM Plex Mono (`--kuadra-font-mono`)
 
-## Learn More
+### Preferencia de tema y estilo
+- Script inline en `RootLayout` aplica:
+  - Tema: `localStorage.theme ∈ {light, dark, auto}`; `auto` oscurece 19:00–06:59.
+  - Estilo: `localStorage.style ∈ {moderno, clasico}` aplica `.modern/.classic` y `font-sans/mono`.
+  - Overrides opcionales: `localStorage.primaryColor`, `localStorage.radius`.
+- En el layout del tenant, si no hay preferencia local, se setea la del mock.
 
-To learn more about Next.js, take a look at the following resources:
+### Ejemplo de uso de variantes
+```tsx
+<div className="rounded-[var(--radius-md)] border modern:shadow-sm classic:shadow-none modern:px-6 classic:px-3">
+  ...
+</div>
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### CI
+GitHub Actions: `.github/workflows/ci.yml` ejecuta install, lint, typecheck y build en push/PR a `main`.
