@@ -45,6 +45,14 @@
   --spacing-xxxl: var(--kuadra-space-xxxl, 3.5rem);
   --spacing-4xl: var(--kuadra-space-4xl, 4rem);
   --spacing-5xl: var(--kuadra-space-5xl, 6rem);
+
+  /* Escala de radios personalizada */
+  --radius-null: var(--kuadra-radius-null, 0rem);
+  --radius-xs: var(--kuadra-radius-xs, 0.5rem);
+  --radius-s: var(--kuadra-radius-s, 1rem);
+  --radius-m: var(--kuadra-radius-m, 1.5rem);
+  --radius-l: var(--kuadra-radius-l, 2.5rem);
+  --radius-full: var(--kuadra-radius-full, 6.25rem);
 }
 
 /* Variables regulares para overrides dinamicos por tenant */
@@ -73,6 +81,12 @@
   --kuadra-space-xxxl: 3.5rem;
   --kuadra-space-4xl: 4rem;
   --kuadra-space-5xl: 6rem;
+  --kuadra-radius-null: 0rem;
+  --kuadra-radius-xs: 0.5rem;
+  --kuadra-radius-s: 1rem;
+  --kuadra-radius-m: 1.5rem;
+  --kuadra-radius-l: 2.5rem;
+  --kuadra-radius-full: 6.25rem;
 }
 
 @utility gap-null {
@@ -500,11 +514,23 @@
   margin-top: calc(var(--spacing-5xl) * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(var(--spacing-5xl) * var(--tw-space-y-reverse));
 }
+@utility rounded-radius-null { border-radius: var(--radius-null); }
+@utility rounded-radius-xs { border-radius: var(--radius-xs); }
+@utility rounded-radius-s { border-radius: var(--radius-s); }
+@utility rounded-radius-m { border-radius: var(--radius-m); }
+@utility rounded-radius-l { border-radius: var(--radius-l); }
+@utility rounded-radius-full { border-radius: var(--radius-full); }
 
 /* Defaults por estilo (sin enviar tokens en el mock) */
 html.modern {
-  --radius-md: 0.75rem;
+  --radius-md: var(--radius-m);
 }
 html.classic {
   --radius-md: 0px;
+  --kuadra-radius-xs: 0rem;
+  --kuadra-radius-s: 0rem;
+  --kuadra-radius-m: 0rem;
+  --kuadra-radius-l: 0rem;
+  --kuadra-radius-full: 0rem;
 }
+

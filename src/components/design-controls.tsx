@@ -1,5 +1,4 @@
 ﻿"use client";
-
 import { useEffect, useState } from "react";
 import {
   PRIMARY_BG_CLASS_MAP,
@@ -12,12 +11,11 @@ import {
   normalizePrimaryPalette,
 } from "@/theme/colors";
 import { PrimaryColorRamp } from "@/components/primary-color-ramp";
+import { RadiusShowcase } from "@/components/radius";
 import { SpacingShowcase } from "@/components/spacing";
 import { TypographyShowcase } from "@/components/typography";
-
 type Mode = "light" | "dark" | "auto";
 type StyleKind = "moderno" | "clasico";
-
 type InitialConfig = {
   primaryColor?: string;
   colors?: { primary?: Partial<Record<string, string>> };
@@ -26,7 +24,6 @@ type InitialConfig = {
   typography?: { sans?: string; heading?: string };
   tokens?: { radius?: string };
 };
-
 export function DesignControls(props: { initial: InitialConfig }) {
   const { initial } = props;
   const [primaryPalette, setPrimaryPalette] = useState<PrimaryPalette>(() =>
@@ -43,14 +40,12 @@ export function DesignControls(props: { initial: InitialConfig }) {
       ? (val as Mode)
       : "auto";
   const [mode, setMode] = useState<Mode>(toMode(initial.mode));
-
   const radius =
     style === "clasico" ? "0px" : initial.tokens?.radius || "0.75rem";
   const typography =
     style === "clasico"
       ? { sans: "IBM Plex Mono", heading: "IBM Plex Mono" }
       : { sans: "Manrope", heading: "Manrope" };
-
   useEffect(() => {
     try {
       const root = document.documentElement;
@@ -70,14 +65,12 @@ export function DesignControls(props: { initial: InitialConfig }) {
       );
     } catch {}
   }, [primaryPalette]);
-
   useEffect(() => {
     try {
       localStorage.setItem("radius", radius);
       document.documentElement.style.setProperty("--radius-md", radius);
     } catch {}
   }, [radius]);
-
   useEffect(() => {
     try {
       localStorage.setItem("style", style);
@@ -97,7 +90,6 @@ export function DesignControls(props: { initial: InitialConfig }) {
       }
     } catch {}
   }, [style]);
-
   useEffect(() => {
     try {
       localStorage.setItem("theme", mode);
@@ -119,14 +111,12 @@ export function DesignControls(props: { initial: InitialConfig }) {
       }
     } catch {}
   }, [mode]);
-
   const handlePrimaryChange = (
     tone: (typeof PRIMARY_TONES)[number],
     value: string
   ) => {
     setPrimaryPalette((prev) => ({ ...prev, [tone]: value }));
   };
-
   return (
     <section className="space-y-6">
       <div className="rounded-md border p-6 space-y-4">
@@ -149,7 +139,6 @@ export function DesignControls(props: { initial: InitialConfig }) {
               aria-label="Color picker"
             />
           </label>
-
           <label className="flex items-center gap-3">
             <span className="w-32 text-gray-600">Estilo</span>
             <select
@@ -165,7 +154,6 @@ export function DesignControls(props: { initial: InitialConfig }) {
               </option>
             </select>
           </label>
-
           <fieldset className="col-span-1 md:col-span-2">
             <legend className="text-gray-600 mb-2">Modo</legend>
             <div className="flex items-center gap-6">
@@ -185,7 +173,6 @@ export function DesignControls(props: { initial: InitialConfig }) {
           </fieldset>
         </div>
       </div>
-
       <section className="rounded-md border p-6 space-y-4">
         <h2 className="text-xl font-medium">Tokens activos</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
@@ -252,10 +239,12 @@ export function DesignControls(props: { initial: InitialConfig }) {
           Nota: shadcn/ui instalado, componentes pendientes
         </div>
       </section>
-
       <section className="space-y-4">
         <h2 className="text-xl font-medium">Foundations</h2>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className="rounded-md border p-4 col-span-3">
+            <TypographyShowcase styleKind={style} />
+          </div>
           <div className="rounded-md border p-4 space-y-3">
             <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-200">
               Color
@@ -265,19 +254,17 @@ export function DesignControls(props: { initial: InitialConfig }) {
           <div className="rounded-md border p-4">
             <SpacingShowcase styleKind={style} />
           </div>
-          <div className="rounded-md border p-4 col-span-2">
-            <TypographyShowcase styleKind={style} />
+          <div className="rounded-md border p-4">
+            <RadiusShowcase styleKind={style} />
           </div>
         </div>
       </section>
-
       <section className="space-y-4">
         <h2 className="text-xl font-medium">UI Primitives</h2>
         <div className="rounded-md border p-6 min-h-28">
           Tarjetas vacias para primitives
         </div>
       </section>
-
       <section className="space-y-4">
         <h2 className="text-xl font-medium">Composites</h2>
         <div className="rounded-md border p-6 min-h-28">
@@ -287,7 +274,6 @@ export function DesignControls(props: { initial: InitialConfig }) {
     </section>
   );
 }
-
 function toHexOrDefault(input: string): string {
   if (!input) return "#876dff";
   if (input.startsWith("#")) return input;
