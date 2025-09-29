@@ -1,5 +1,4 @@
-@import "tailwindcss";
-
+﻿@import "tailwindcss";
 
 /* Dark mode manual via clase `.dark` (en v4 se redefine la variante) */
 @custom-variant dark (&:where(.dark, .dark *));
@@ -8,26 +7,504 @@
 @custom-variant modern (&:where(.modern, .modern *));
 @custom-variant classic (&:where(.classic, .classic *));
 
-
-/* Tokens base del diseño (theme variables) */
+/* Tokens base del diseno (theme variables) */
 @theme {
-  /* Tipografías: utilidades `font-sans`, `font-mono`, etc. */
+  /* Tipografias: utilidades `font-sans`, `font-mono`, etc. */
   --font-sans: var(--kuadra-font-sans, Manrope, ui-sans-serif, system-ui);
-  --font-mono: var(--kuadra-font-mono, "IBM Plex Mono", ui-monospace, monospace);
+  --font-mono: var(
+    --kuadra-font-mono,
+    "IBM Plex Mono",
+    ui-monospace,
+    monospace
+  );
 
-  /* Color primario semántico; utilidades: bg-primary-500 si defines escala o usa utilidades arbit. */
-  --color-primary-500: oklch(0.65 0.20 300); /* violeta por defecto */
+  /* Escala primaria dinamica */
+  --color-primary-50: var(--kuadra-color-primary-50, #f3f0ff);
+  --color-primary-100: var(--kuadra-color-primary-100, #dad2ff);
+  --color-primary-200: var(--kuadra-color-primary-200, #c8bcff);
+  --color-primary-300: var(--kuadra-color-primary-300, #af9dff);
+  --color-primary-400: var(--kuadra-color-primary-400, #9f8aff);
+  --color-primary-500: var(--kuadra-color-primary-500, #876dff);
+  --color-primary-600: var(--kuadra-color-primary-600, #7b63e8);
+  --color-primary-700: var(--kuadra-color-primary-700, #604ab5);
+  --color-primary-800: var(--kuadra-color-primary-800, #4a3c8c);
+  --color-primary-900: var(--kuadra-color-primary-900, #392e6b);
+
   --radius-md: 0.75rem;
+
+  /* Escala de espaciado personalizada */
+  --spacing-null: var(--kuadra-space-null, 0rem);
+  --spacing-xxxs: var(--kuadra-space-xxxs, 0.125rem);
+  --spacing-xxs: var(--kuadra-space-xxs, 0.25rem);
+  --spacing-xs: var(--kuadra-space-xs, 0.5rem);
+  --spacing-s: var(--kuadra-space-s, 1rem);
+  --spacing-m: var(--kuadra-space-m, 1.5rem);
+  --spacing-l: var(--kuadra-space-l, 2rem);
+  --spacing-xl: var(--kuadra-space-xl, 2.5rem);
+  --spacing-xxl: var(--kuadra-space-xxl, 3rem);
+  --spacing-xxxl: var(--kuadra-space-xxxl, 3.5rem);
+  --spacing-4xl: var(--kuadra-space-4xl, 4rem);
+  --spacing-5xl: var(--kuadra-space-5xl, 6rem);
 }
 
-
-/* Variables regulares (no crean utilidades) para facilitar overrides dinámicos por tenant */
+/* Variables regulares para overrides dinamicos por tenant */
 :root {
-  --kuadra-color-primary-500: oklch(0.65 0.20 300);
+  --kuadra-color-primary-50: #f3f0ff;
+  --kuadra-color-primary-100: #dad2ff;
+  --kuadra-color-primary-200: #c8bcff;
+  --kuadra-color-primary-300: #af9dff;
+  --kuadra-color-primary-400: #9f8aff;
+  --kuadra-color-primary-500: #876dff;
+  --kuadra-color-primary-600: #7b63e8;
+  --kuadra-color-primary-700: #604ab5;
+  --kuadra-color-primary-800: #4a3c8c;
+  --kuadra-color-primary-900: #392e6b;
   --kuadra-font-sans: Manrope, ui-sans-serif, system-ui;
   --kuadra-font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --kuadra-space-null: 0rem;
+  --kuadra-space-xxxs: 0.125rem;
+  --kuadra-space-xxs: 0.25rem;
+  --kuadra-space-xs: 0.5rem;
+  --kuadra-space-s: 1rem;
+  --kuadra-space-m: 1.5rem;
+  --kuadra-space-l: 2rem;
+  --kuadra-space-xl: 2.5rem;
+  --kuadra-space-xxl: 3rem;
+  --kuadra-space-xxxl: 3.5rem;
+  --kuadra-space-4xl: 4rem;
+  --kuadra-space-5xl: 6rem;
+}
+
+@utility gap-null {
+  gap: var(--spacing-null);
+}
+@utility gap-xxxs {
+  gap: var(--spacing-xxxs);
+}
+@utility gap-xxs {
+  gap: var(--spacing-xxs);
+}
+@utility gap-xs {
+  gap: var(--spacing-xs);
+}
+@utility gap-s {
+  gap: var(--spacing-s);
+}
+@utility gap-m {
+  gap: var(--spacing-m);
+}
+@utility gap-l {
+  gap: var(--spacing-l);
+}
+@utility gap-xl {
+  gap: var(--spacing-xl);
+}
+@utility gap-xxl {
+  gap: var(--spacing-xxl);
+}
+@utility gap-xxxl {
+  gap: var(--spacing-xxxl);
+}
+@utility gap-4xl {
+  gap: var(--spacing-4xl);
+}
+@utility gap-5xl {
+  gap: var(--spacing-5xl);
+}
+@utility p-null {
+  padding: var(--spacing-null);
+}
+@utility p-xxxs {
+  padding: var(--spacing-xxxs);
+}
+@utility p-xxs {
+  padding: var(--spacing-xxs);
+}
+@utility p-xs {
+  padding: var(--spacing-xs);
+}
+@utility p-s {
+  padding: var(--spacing-s);
+}
+@utility p-m {
+  padding: var(--spacing-m);
+}
+@utility p-l {
+  padding: var(--spacing-l);
+}
+@utility p-xl {
+  padding: var(--spacing-xl);
+}
+@utility p-xxl {
+  padding: var(--spacing-xxl);
+}
+@utility p-xxxl {
+  padding: var(--spacing-xxxl);
+}
+@utility p-4xl {
+  padding: var(--spacing-4xl);
+}
+@utility p-5xl {
+  padding: var(--spacing-5xl);
+}
+
+@utility px-null {
+  padding-left: var(--spacing-null);
+  padding-right: var(--spacing-null);
+}
+@utility px-xxxs {
+  padding-left: var(--spacing-xxxs);
+  padding-right: var(--spacing-xxxs);
+}
+@utility px-xxs {
+  padding-left: var(--spacing-xxs);
+  padding-right: var(--spacing-xxs);
+}
+@utility px-xs {
+  padding-left: var(--spacing-xs);
+  padding-right: var(--spacing-xs);
+}
+@utility px-s {
+  padding-left: var(--spacing-s);
+  padding-right: var(--spacing-s);
+}
+@utility px-m {
+  padding-left: var(--spacing-m);
+  padding-right: var(--spacing-m);
+}
+@utility px-l {
+  padding-left: var(--spacing-l);
+  padding-right: var(--spacing-l);
+}
+@utility px-xl {
+  padding-left: var(--spacing-xl);
+  padding-right: var(--spacing-xl);
+}
+@utility px-xxl {
+  padding-left: var(--spacing-xxl);
+  padding-right: var(--spacing-xxl);
+}
+@utility px-xxxl {
+  padding-left: var(--spacing-xxxl);
+  padding-right: var(--spacing-xxxl);
+}
+@utility px-4xl {
+  padding-left: var(--spacing-4xl);
+  padding-right: var(--spacing-4xl);
+}
+@utility px-5xl {
+  padding-left: var(--spacing-5xl);
+  padding-right: var(--spacing-5xl);
+}
+
+@utility py-null {
+  padding-top: var(--spacing-null);
+  padding-bottom: var(--spacing-null);
+}
+@utility py-xxxs {
+  padding-top: var(--spacing-xxxs);
+  padding-bottom: var(--spacing-xxxs);
+}
+@utility py-xxs {
+  padding-top: var(--spacing-xxs);
+  padding-bottom: var(--spacing-xxs);
+}
+@utility py-xs {
+  padding-top: var(--spacing-xs);
+  padding-bottom: var(--spacing-xs);
+}
+@utility py-s {
+  padding-top: var(--spacing-s);
+  padding-bottom: var(--spacing-s);
+}
+@utility py-m {
+  padding-top: var(--spacing-m);
+  padding-bottom: var(--spacing-m);
+}
+@utility py-l {
+  padding-top: var(--spacing-l);
+  padding-bottom: var(--spacing-l);
+}
+@utility py-xl {
+  padding-top: var(--spacing-xl);
+  padding-bottom: var(--spacing-xl);
+}
+@utility py-xxl {
+  padding-top: var(--spacing-xxl);
+  padding-bottom: var(--spacing-xxl);
+}
+@utility py-xxxl {
+  padding-top: var(--spacing-xxxl);
+  padding-bottom: var(--spacing-xxxl);
+}
+@utility py-4xl {
+  padding-top: var(--spacing-4xl);
+  padding-bottom: var(--spacing-4xl);
+}
+@utility py-5xl {
+  padding-top: var(--spacing-5xl);
+  padding-bottom: var(--spacing-5xl);
+}
+@utility m-null {
+  margin: var(--spacing-null);
+}
+@utility m-xxxs {
+  margin: var(--spacing-xxxs);
+}
+@utility m-xxs {
+  margin: var(--spacing-xxs);
+}
+@utility m-xs {
+  margin: var(--spacing-xs);
+}
+@utility m-s {
+  margin: var(--spacing-s);
+}
+@utility m-m {
+  margin: var(--spacing-m);
+}
+@utility m-l {
+  margin: var(--spacing-l);
+}
+@utility m-xl {
+  margin: var(--spacing-xl);
+}
+@utility m-xxl {
+  margin: var(--spacing-xxl);
+}
+@utility m-xxxl {
+  margin: var(--spacing-xxxl);
+}
+@utility m-4xl {
+  margin: var(--spacing-4xl);
+}
+@utility m-5xl {
+  margin: var(--spacing-5xl);
+}
+
+@utility mx-null {
+  margin-left: var(--spacing-null);
+  margin-right: var(--spacing-null);
+}
+@utility mx-xxxs {
+  margin-left: var(--spacing-xxxs);
+  margin-right: var(--spacing-xxxs);
+}
+@utility mx-xxs {
+  margin-left: var(--spacing-xxs);
+  margin-right: var(--spacing-xxs);
+}
+@utility mx-xs {
+  margin-left: var(--spacing-xs);
+  margin-right: var(--spacing-xs);
+}
+@utility mx-s {
+  margin-left: var(--spacing-s);
+  margin-right: var(--spacing-s);
+}
+@utility mx-m {
+  margin-left: var(--spacing-m);
+  margin-right: var(--spacing-m);
+}
+@utility mx-l {
+  margin-left: var(--spacing-l);
+  margin-right: var(--spacing-l);
+}
+@utility mx-xl {
+  margin-left: var(--spacing-xl);
+  margin-right: var(--spacing-xl);
+}
+@utility mx-xxl {
+  margin-left: var(--spacing-xxl);
+  margin-right: var(--spacing-xxl);
+}
+@utility mx-xxxl {
+  margin-left: var(--spacing-xxxl);
+  margin-right: var(--spacing-xxxl);
+}
+@utility mx-4xl {
+  margin-left: var(--spacing-4xl);
+  margin-right: var(--spacing-4xl);
+}
+@utility mx-5xl {
+  margin-left: var(--spacing-5xl);
+  margin-right: var(--spacing-5xl);
+}
+
+@utility my-null {
+  margin-top: var(--spacing-null);
+  margin-bottom: var(--spacing-null);
+}
+@utility my-xxxs {
+  margin-top: var(--spacing-xxxs);
+  margin-bottom: var(--spacing-xxxs);
+}
+@utility my-xxs {
+  margin-top: var(--spacing-xxs);
+  margin-bottom: var(--spacing-xxs);
+}
+@utility my-xs {
+  margin-top: var(--spacing-xs);
+  margin-bottom: var(--spacing-xs);
+}
+@utility my-s {
+  margin-top: var(--spacing-s);
+  margin-bottom: var(--spacing-s);
+}
+@utility my-m {
+  margin-top: var(--spacing-m);
+  margin-bottom: var(--spacing-m);
+}
+@utility my-l {
+  margin-top: var(--spacing-l);
+  margin-bottom: var(--spacing-l);
+}
+@utility my-xl {
+  margin-top: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+}
+@utility my-xxl {
+  margin-top: var(--spacing-xxl);
+  margin-bottom: var(--spacing-xxl);
+}
+@utility my-xxxl {
+  margin-top: var(--spacing-xxxl);
+  margin-bottom: var(--spacing-xxxl);
+}
+@utility my-4xl {
+  margin-top: var(--spacing-4xl);
+  margin-bottom: var(--spacing-4xl);
+}
+@utility my-5xl {
+  margin-top: var(--spacing-5xl);
+  margin-bottom: var(--spacing-5xl);
+}
+@utility space-x-null {
+  --tw-space-x-reverse: 0;
+  margin-left: calc(var(--spacing-null) * calc(1 - var(--tw-space-x-reverse)));
+  margin-right: calc(var(--spacing-null) * var(--tw-space-x-reverse));
+}
+@utility space-x-xxxs {
+  --tw-space-x-reverse: 0;
+  margin-left: calc(var(--spacing-xxxs) * calc(1 - var(--tw-space-x-reverse)));
+  margin-right: calc(var(--spacing-xxxs) * var(--tw-space-x-reverse));
+}
+@utility space-x-xxs {
+  --tw-space-x-reverse: 0;
+  margin-left: calc(var(--spacing-xxs) * calc(1 - var(--tw-space-x-reverse)));
+  margin-right: calc(var(--spacing-xxs) * var(--tw-space-x-reverse));
+}
+@utility space-x-xs {
+  --tw-space-x-reverse: 0;
+  margin-left: calc(var(--spacing-xs) * calc(1 - var(--tw-space-x-reverse)));
+  margin-right: calc(var(--spacing-xs) * var(--tw-space-x-reverse));
+}
+@utility space-x-s {
+  --tw-space-x-reverse: 0;
+  margin-left: calc(var(--spacing-s) * calc(1 - var(--tw-space-x-reverse)));
+  margin-right: calc(var(--spacing-s) * var(--tw-space-x-reverse));
+}
+@utility space-x-m {
+  --tw-space-x-reverse: 0;
+  margin-left: calc(var(--spacing-m) * calc(1 - var(--tw-space-x-reverse)));
+  margin-right: calc(var(--spacing-m) * var(--tw-space-x-reverse));
+}
+@utility space-x-l {
+  --tw-space-x-reverse: 0;
+  margin-left: calc(var(--spacing-l) * calc(1 - var(--tw-space-x-reverse)));
+  margin-right: calc(var(--spacing-l) * var(--tw-space-x-reverse));
+}
+@utility space-x-xl {
+  --tw-space-x-reverse: 0;
+  margin-left: calc(var(--spacing-xl) * calc(1 - var(--tw-space-x-reverse)));
+  margin-right: calc(var(--spacing-xl) * var(--tw-space-x-reverse));
+}
+@utility space-x-xxl {
+  --tw-space-x-reverse: 0;
+  margin-left: calc(var(--spacing-xxl) * calc(1 - var(--tw-space-x-reverse)));
+  margin-right: calc(var(--spacing-xxl) * var(--tw-space-x-reverse));
+}
+@utility space-x-xxxl {
+  --tw-space-x-reverse: 0;
+  margin-left: calc(var(--spacing-xxxl) * calc(1 - var(--tw-space-x-reverse)));
+  margin-right: calc(var(--spacing-xxxl) * var(--tw-space-x-reverse));
+}
+@utility space-x-4xl {
+  --tw-space-x-reverse: 0;
+  margin-left: calc(var(--spacing-4xl) * calc(1 - var(--tw-space-x-reverse)));
+  margin-right: calc(var(--spacing-4xl) * var(--tw-space-x-reverse));
+}
+@utility space-x-5xl {
+  --tw-space-x-reverse: 0;
+  margin-left: calc(var(--spacing-5xl) * calc(1 - var(--tw-space-x-reverse)));
+  margin-right: calc(var(--spacing-5xl) * var(--tw-space-x-reverse));
+}
+
+@utility space-y-null {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(var(--spacing-null) * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(var(--spacing-null) * var(--tw-space-y-reverse));
+}
+@utility space-y-xxxs {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(var(--spacing-xxxs) * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(var(--spacing-xxxs) * var(--tw-space-y-reverse));
+}
+@utility space-y-xxs {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(var(--spacing-xxs) * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(var(--spacing-xxs) * var(--tw-space-y-reverse));
+}
+@utility space-y-xs {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(var(--spacing-xs) * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(var(--spacing-xs) * var(--tw-space-y-reverse));
+}
+@utility space-y-s {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(var(--spacing-s) * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(var(--spacing-s) * var(--tw-space-y-reverse));
+}
+@utility space-y-m {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(var(--spacing-m) * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(var(--spacing-m) * var(--tw-space-y-reverse));
+}
+@utility space-y-l {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(var(--spacing-l) * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(var(--spacing-l) * var(--tw-space-y-reverse));
+}
+@utility space-y-xl {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(var(--spacing-xl) * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(var(--spacing-xl) * var(--tw-space-y-reverse));
+}
+@utility space-y-xxl {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(var(--spacing-xxl) * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(var(--spacing-xxl) * var(--tw-space-y-reverse));
+}
+@utility space-y-xxxl {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(var(--spacing-xxxl) * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(var(--spacing-xxxl) * var(--tw-space-y-reverse));
+}
+@utility space-y-4xl {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(var(--spacing-4xl) * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(var(--spacing-4xl) * var(--tw-space-y-reverse));
+}
+@utility space-y-5xl {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(var(--spacing-5xl) * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(var(--spacing-5xl) * var(--tw-space-y-reverse));
 }
 
 /* Defaults por estilo (sin enviar tokens en el mock) */
-html.modern { --radius-md: 0.75rem; }
-html.classic { --radius-md: 0px; }
+html.modern {
+  --radius-md: 0.75rem;
+}
+html.classic {
+  --radius-md: 0px;
+}

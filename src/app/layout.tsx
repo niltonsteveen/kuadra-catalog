@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Manrope, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { PRIMARY_COLOR_STORAGE_KEY, PRIMARY_PALETTE_STORAGE_KEY, PRIMARY_TONES } from "@/theme/colors";
 
 const manrope = Manrope({ subsets: ["latin"], weight: ["400", "600"], variable: "--kuadra-font-sans" });
 const plexMono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400"], variable: "--kuadra-font-mono" });
@@ -23,30 +24,62 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html: `(() => {try {
+  const root=document.documentElement;
   const K='theme';
   const S='style';
-  const C='primaryColor';
   const R='radius';
+  const P=${JSON.stringify(PRIMARY_PALETTE_STORAGE_KEY)};
+  const C=${JSON.stringify(PRIMARY_COLOR_STORAGE_KEY)};
+  const tones=${JSON.stringify(PRIMARY_TONES)};
   const H=new Date().getHours();
   const isNight=(H<7||H>=19);
+
   let mode=localStorage.getItem(K);
-  if(mode!=='light'&&mode!=='dark'&&mode!=='auto'){mode='auto';}
+  if(mode!=='light'&&mode!=='dark'&&mode!=='auto'){
+    mode='auto';
+  }
   const effective = mode==='dark' ? 'dark' : mode==='light' ? 'light' : (isNight?'dark':'light');
-  const root=document.documentElement;
   if(effective==='dark'){root.classList.add('dark');} else {root.classList.remove('dark');}
-  // Overrides de color/radio
-  const pc=localStorage.getItem(C); if(pc){root.style.setProperty('--kuadra-color-primary-500', pc);}    
-  const rd=localStorage.getItem(R); if(rd){root.style.setProperty('--radius-md', rd);}    
-  // Estilo (modern/classic) y tipografía
-  const st=localStorage.getItem(S);
+
+  const storedPalette = localStorage.getItem(P);
+  if(storedPalette){
+    try {
+      const parsed = JSON.parse(storedPalette);
+      for (const tone of tones) {
+        const direct = typeof parsed?.[tone] === 'string' ? parsed[tone] : null;
+        const prefixed = typeof parsed?.['primary-'+tone] === 'string' ? parsed['primary-'+tone] : null;
+        const value = prefixed || direct;
+        if (value) {
+          root.style.setProperty('--kuadra-color-primary-'+tone, value);
+        }
+      }
+    } catch {}
+  } else {
+    const legacy = localStorage.getItem(C);
+    if(legacy){root.style.setProperty('--kuadra-color-primary-500', legacy);}
+  }
+
+  const rd=localStorage.getItem(R); if(rd){root.style.setProperty('--radius-md', rd);}
+
+  const resolveStyle = () => {
+    const stored = localStorage.getItem(S);
+    if(stored==='moderno'||stored==='clasico'){return stored;}
+    localStorage.setItem(S, 'moderno');
+    return 'moderno';
+  };
   const applyStyle = () => {
     const body=document.body; if(!body) return;
+    const current=resolveStyle();
     body.classList.remove('font-sans','font-mono');
-    body.classList.add(st==='clasico'?'font-mono':'font-sans');
+    body.classList.add(current==='clasico'?'font-mono':'font-sans');
     root.classList.remove('modern','classic');
-    root.classList.add(st==='clasico'?'classic':'modern');
+    root.classList.add(current==='clasico'?'classic':'modern');
   };
-  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded', applyStyle);} else {applyStyle();}
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', applyStyle);
+  } else {
+    applyStyle();
+  }
 } catch(_){}})();`,
           }}
         />
