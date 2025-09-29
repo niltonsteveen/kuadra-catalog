@@ -9,6 +9,7 @@ import {
   PRIMARY_TONES,
   PrimaryPalette,
   normalizePrimaryPalette,
+  generatePaletteFromBase,
 } from "@/theme/colors";
 import { PrimaryColorRamp } from "@/components/primary-color-ramp";
 import { RadiusShowcase } from "@/components/radius";
@@ -115,7 +116,14 @@ export function DesignControls(props: { initial: InitialConfig }) {
     tone: (typeof PRIMARY_TONES)[number],
     value: string
   ) => {
-    setPrimaryPalette((prev) => ({ ...prev, [tone]: value }));
+    if (tone === "500") {
+      // Cuando se cambia el primary-500, generar toda la paleta automáticamente
+      const newPalette = generatePaletteFromBase(value);
+      setPrimaryPalette(newPalette);
+    } else {
+      // Para otros tonos, solo actualizar ese tono específico
+      setPrimaryPalette((prev) => ({ ...prev, [tone]: value }));
+    }
   };
   return (
     <section className="space-y-6">
