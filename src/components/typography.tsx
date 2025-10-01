@@ -4,18 +4,11 @@
   ReactNode,
   CSSProperties,
 } from "react";
-
-export type TypographySize =
-  | "xxxs"
-  | "xxs"
-  | "xs"
-  | "s"
-  | "m"
-  | "l"
-  | "xl"
-  | "xxl"
-  | "xxxl"
-  | "4xl";
+import {
+  TYPOGRAPHY_SIZE_MAP,
+  TYPOGRAPHY_SIZES,
+  type TypographySize,
+} from "../design-tokens/typography";
 
 export type TypographyWeight =
   | "thin"
@@ -29,19 +22,6 @@ export type TypographyWeight =
   | "black";
 
 export type TypographyStyleKind = "moderno" | "clasico";
-
-const SIZE_IN_PX: Record<TypographySize, number> = {
-  xxxs: 10,
-  xxs: 13,
-  xs: 16,
-  s: 20,
-  m: 25,
-  l: 31,
-  xl: 39,
-  xxl: 49,
-  xxxl: 61,
-  "4xl": 76,
-};
 
 const WEIGHT_MAP: Record<TypographyWeight, number> = {
   thin: 100,
@@ -59,19 +39,6 @@ const FONT_FAMILY_BY_STYLE: Record<TypographyStyleKind, string> = {
   moderno: "var(--kuadra-font-sans)",
   clasico: "var(--kuadra-font-mono)",
 };
-
-export const TYPOGRAPHY_SIZES: TypographySize[] = [
-  "4xl",
-  "xxxl",
-  "xxl",
-  "xl",
-  "l",
-  "m",
-  "s",
-  "xs",
-  "xxs",
-  "xxxs",
-];
 
 export const TYPOGRAPHY_WEIGHTS: TypographyWeight[] = [
   "thin",
@@ -114,7 +81,8 @@ export function Typography<T extends ElementType = "p">({
   const inlineStyle: CSSProperties = {
     ...(style ?? {}),
     fontFamily: FONT_FAMILY_BY_STYLE[styleKind],
-    fontSize: `${SIZE_IN_PX[size]}px`,
+    fontSize: TYPOGRAPHY_SIZE_MAP[size].fontSize,
+    lineHeight: TYPOGRAPHY_SIZE_MAP[size].lineHeight,
     fontWeight: WEIGHT_MAP[weight],
   };
 

@@ -1,4 +1,6 @@
 import { Typography } from "@/components/typography";
+import { Button } from "@/components/ui/button";
+import { SearchIcon } from "lucide-react";
 import Link from "next/link";
 
 export default function Page() {
@@ -20,10 +22,36 @@ export default function Page() {
             Ver catalogo publico de componentes
           </Link>
         </p>
-
-        <Typography size="xxl" weight="medium" styleKind="moderno">
-          Texto en estilo clásico.
-        </Typography>
+        <div className="bg-success-500 p-s">
+          <Typography
+            size="xxl"
+            weight="medium"
+            styleKind="moderno"
+            className="!text-error-900"
+          >
+            Texto en estilo clásico.
+          </Typography>
+        </div>
+        <div className="flex flex-wrap items-center gap-s">
+          <Button disabled>Lorem ipsum dollor sit</Button>
+          <Button suffixIcon={<SearchIcon />} prefixIcon={<SearchIcon />}>
+            Lorem ipsum dollor sit
+          </Button>
+          <Button variant={"destructive"}>Lorem ipsum dollor sit</Button>
+          <Button disabled size={"s"} variant={"secondary"}>
+            Lorem ipsum dollor sit
+          </Button>
+          <Button size={"s"} variant={"secondary"}>
+            Lorem ipsum dollor sit
+          </Button>
+          <Button size={"s"} variant={"destructive_secondary"}>
+            Lorem ipsum dollor sit
+          </Button>
+          <Button size={"s"} variant={"text"}>
+            Lorem ipsum dollor sit
+          </Button>
+          <Button variant={"link"}>Lorem ipsum dollor sit</Button>
+        </div>
       </section>
     </main>
   );

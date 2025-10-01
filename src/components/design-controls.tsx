@@ -15,6 +15,88 @@ import { PrimaryColorRamp } from "@/components/primary-color-ramp";
 import { RadiusShowcase } from "@/components/radius";
 import { SpacingShowcase } from "@/components/spacing";
 import { TypographyShowcase } from "@/components/typography";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
+const SEMANTIC_TONES = [
+  "50",
+  "100",
+  "200",
+  "300",
+  "400",
+  "500",
+  "600",
+  "700",
+  "800",
+  "900",
+] as const;
+const SEMANTIC_SCALE_IDS = [
+  "gray",
+  "info",
+  "warning",
+  "error",
+  "success",
+] as const;
+
+type SemanticTone = (typeof SEMANTIC_TONES)[number];
+type SemanticScaleId = (typeof SEMANTIC_SCALE_IDS)[number];
+
+const SEMANTIC_LABELS: Record<SemanticScaleId, string> = {
+  gray: "Gray",
+  info: "Info",
+  warning: "Warning",
+  error: "Error",
+  success: "Success",
+};
+
+type SemanticPaletteState = Record<
+  SemanticScaleId,
+  Record<SemanticTone, string>
+>;
+
+function createEmptySemanticPalette(): SemanticPaletteState {
+  return SEMANTIC_SCALE_IDS.reduce((acc, scale) => {
+    acc[scale] = SEMANTIC_TONES.reduce((toneAcc, tone) => {
+      toneAcc[tone] = "";
+      return toneAcc;
+    }, {} as Record<SemanticTone, string>);
+    return acc;
+  }, {} as SemanticPaletteState);
+}
+
+function hexToRgbString(color: string): string | null {
+  const input = color.trim();
+  if (!input) {
+    return null;
+  }
+  if (input.startsWith("rgb")) {
+    return input;
+  }
+  const value = input.replace(/^#/, "");
+  if (!/^[0-9a-fA-F]{6}$/.test(value)) {
+    return null;
+  }
+  const r = parseInt(value.slice(0, 2), 16);
+  const g = parseInt(value.slice(2, 4), 16);
+  const b = parseInt(value.slice(4, 6), 16);
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+function readSemanticPaletteFromCss(
+  computed: CSSStyleDeclaration
+): SemanticPaletteState {
+  const next = createEmptySemanticPalette();
+  for (const scale of SEMANTIC_SCALE_IDS) {
+    for (const tone of SEMANTIC_TONES) {
+      const value = computed
+        .getPropertyValue(`--kuadra-color-${scale}-${tone}`)
+        .trim();
+      if (value) {
+        next[scale][tone] = value;
+      }
+    }
+  }
+  return next;
+}
 type Mode = "light" | "dark" | "auto";
 type StyleKind = "moderno" | "clasico";
 type InitialConfig = {
@@ -33,6 +115,8 @@ export function DesignControls(props: { initial: InitialConfig }) {
     )
   );
   const primary500 = primaryPalette["500"];
+  const [semanticPalettes, setSemanticPalettes] =
+    useState<SemanticPaletteState>(() => createEmptySemanticPalette());
   const [style, setStyle] = useState<StyleKind>(
     initial.style === "clasico" ? "clasico" : "moderno"
   );
@@ -66,6 +150,13 @@ export function DesignControls(props: { initial: InitialConfig }) {
       );
     } catch {}
   }, [primaryPalette]);
+  useEffect(() => {
+    try {
+      const computed = getComputedStyle(document.documentElement);
+      const next = readSemanticPaletteFromCss(computed);
+      setSemanticPalettes(next);
+    } catch {}
+  }, []);
   useEffect(() => {
     try {
       localStorage.setItem("radius", radius);
@@ -248,6 +339,76 @@ export function DesignControls(props: { initial: InitialConfig }) {
         </div>
       </section>
       <section className="space-y-4">
+        <h2 className="text-xl font-medium">Escalas complementarias</h2>
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3">
+          {SEMANTIC_SCALE_IDS.map((scaleId) => {
+            const palette = semanticPalettes[scaleId];
+            const label = SEMANTIC_LABELS[scaleId];
+            return (
+              <div
+                key={scaleId}
+                className="rounded-xl border bg-white/70 dark:bg-neutral-900/40 p-4 space-y-3"
+              >
+                <div className="flex items-baseline justify-between">
+                  <h3 className="text-lg font-semibold">{label}</h3>
+                  <span className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                    {scaleId}
+                  </span>
+                </div>
+                <div className="space-y-2">
+                  {SEMANTIC_TONES.map((tone) => {
+                    const value = palette?.[tone] ?? "";
+                    const rgb = hexToRgbString(value);
+                    const swatchStyle = value
+                      ? { backgroundColor: value }
+                      : undefined;
+                    const textStyle = value ? { color: value } : undefined;
+                    const utilityClass = `bg-${scaleId}-${tone}`;
+                    const cssVarName = `--kuadra-color-${scaleId}-${tone}`;
+                    return (
+                      <div
+                        key={tone}
+                        className="flex items-center gap-3 rounded-lg border border-gray-100/70 dark:border-neutral-800/70 bg-white/80 dark:bg-neutral-900/50 px-3 py-2"
+                      >
+                        <div
+                          className="h-10 w-10 flex-shrink-0 rounded-md border border-black/5 shadow-sm"
+                          style={swatchStyle}
+                        />
+                        <div className="flex-1">
+                          <div className="text-xs font-semibold uppercase tracking-wide text-gray-600 dark:text-gray-300">
+                            {scaleId}-{tone}
+                          </div>
+                          <div className="font-mono text-[11px] text-gray-600 dark:text-gray-300 break-all">
+                            {value || cssVarName}
+                          </div>
+                          <div className="font-mono text-[11px] text-gray-500 dark:text-gray-400">
+                            {cssVarName}
+                          </div>
+                          <div className="font-mono text-[11px] text-gray-500 dark:text-gray-400">
+                            {utilityClass}
+                          </div>
+                          {rgb ? (
+                            <div className="font-mono text-[11px] text-gray-500 dark:text-gray-400">
+                              {rgb}
+                            </div>
+                          ) : null}
+                        </div>
+                        <div
+                          className="text-sm font-semibold"
+                          style={textStyle}
+                        >
+                          Aa
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+      <section className="space-y-4">
         <h2 className="text-xl font-medium">Foundations</h2>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           <div className="rounded-md border p-4 col-span-3">
@@ -269,8 +430,157 @@ export function DesignControls(props: { initial: InitialConfig }) {
       </section>
       <section className="space-y-4">
         <h2 className="text-xl font-medium">UI Primitives</h2>
-        <div className="rounded-md border p-6 min-h-28">
-          Tarjetas vacias para primitives
+        <div className="rounded-md border p-6 space-y-6">
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Button Variants</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Default
+                </h4>
+                <div className="flex flex-col gap-2">
+                  <Button>Default</Button>
+                  <Button prefixIcon={<Plus />} suffixIcon={<Plus />}>
+                    With Icons
+                  </Button>
+                  <Button disabled>Disabled</Button>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Destructive
+                </h4>
+                <div className="flex flex-col gap-2">
+                  <Button variant="destructive">Destructive</Button>
+                  <Button
+                    variant="destructive"
+                    prefixIcon={<Plus />}
+                    suffixIcon={<Plus />}
+                  >
+                    With Icons
+                  </Button>
+                  <Button variant="destructive" disabled>
+                    Destructive Disabled
+                  </Button>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Secondary
+                </h4>
+                <div className="flex flex-col gap-2">
+                  <Button variant="secondary">Secondary</Button>
+                  <Button
+                    variant="secondary"
+                    prefixIcon={<Plus />}
+                    suffixIcon={<Plus />}
+                  >
+                    With Icons
+                  </Button>
+                  <Button variant="secondary" disabled>
+                    Secondary Disabled
+                  </Button>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Destructive Secondary
+                </h4>
+                <div className="flex flex-col gap-2">
+                  <Button variant="destructive_secondary">
+                    Destructive Secondary
+                  </Button>
+                  <Button
+                    variant="destructive_secondary"
+                    prefixIcon={<Plus />}
+                    suffixIcon={<Plus />}
+                  >
+                    With Icons
+                  </Button>
+                  <Button variant="destructive_secondary" disabled>
+                    Destructive Secondary Disabled
+                  </Button>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Text
+                </h4>
+                <div className="flex flex-col gap-2">
+                  <Button variant="text">Text</Button>
+                  <Button
+                    variant="text"
+                    prefixIcon={<Plus />}
+                    suffixIcon={<Plus />}
+                  >
+                    With Icons
+                  </Button>
+                  <Button variant="text" disabled>
+                    Text Disabled
+                  </Button>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Destructive Text
+                </h4>
+                <div className="flex flex-col gap-2">
+                  <Button variant="destructive_text">Destructive Text</Button>
+                  <Button
+                    variant="destructive_text"
+                    prefixIcon={<Plus />}
+                    suffixIcon={<Plus />}
+                  >
+                    With Icons
+                  </Button>
+                  <Button variant="destructive_text" disabled>
+                    Destructive Text Disabled
+                  </Button>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Link
+                </h4>
+                <div className="flex flex-col gap-2">
+                  <Button variant="link">Link</Button>
+                  <Button
+                    variant="link"
+                    prefixIcon={<Plus />}
+                    suffixIcon={<Plus />}
+                  >
+                    With Icons
+                  </Button>
+                  <Button variant="link" disabled>
+                    Link Disabled
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Button Sizes</h3>
+            <div className="flex flex-wrap gap-4 items-center">
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Medium
+                </h4>
+                <Button size="m">Medium Button</Button>
+                <Button size="m" prefixIcon={<Plus />} suffixIcon={<Plus />}>
+                  With Icons
+                </Button>
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Small
+                </h4>
+                <Button size="s">Small Button</Button>
+                <Button size="s" prefixIcon={<Plus />} suffixIcon={<Plus />}>
+                  With Icons
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
       <section className="space-y-4">

@@ -1,4 +1,5 @@
-﻿@import "tailwindcss";
+@import "tailwindcss";
+@import "tw-animate-css";
 
 /* Dark mode manual via clase `.dark` (en v4 se redefine la variante) */
 @custom-variant dark (&:where(.dark, .dark *));
@@ -29,6 +30,58 @@
   --color-primary-700: var(--kuadra-color-primary-700, #604ab5);
   --color-primary-800: var(--kuadra-color-primary-800, #4a3c8c);
   --color-primary-900: var(--kuadra-color-primary-900, #392e6b);
+
+  /* Escalas neutrales y de feedback */
+  --color-gray-50: var(--kuadra-color-gray-50, #fafafa);
+  --color-gray-100: var(--kuadra-color-gray-100, #f0f0f0);
+  --color-gray-200: var(--kuadra-color-gray-200, #e9e9e9);
+  --color-gray-300: var(--kuadra-color-gray-300, #dfdfdf);
+  --color-gray-400: var(--kuadra-color-gray-400, #d9d9d9);
+  --color-gray-500: var(--kuadra-color-gray-500, #cfcfcf);
+  --color-gray-600: var(--kuadra-color-gray-600, #bcbcbc);
+  --color-gray-700: var(--kuadra-color-gray-700, #939393);
+  --color-gray-800: var(--kuadra-color-gray-800, #727272);
+  --color-gray-900: var(--kuadra-color-gray-900, #575757);
+  --color-info-50: var(--kuadra-color-info-50, #f4fbff);
+  --color-info-100: var(--kuadra-color-info-100, #ddf2ff);
+  --color-info-200: var(--kuadra-color-info-200, #ccecff);
+  --color-info-300: var(--kuadra-color-info-300, #b5e3ff);
+  --color-info-400: var(--kuadra-color-info-400, #a6ddff);
+  --color-info-500: var(--kuadra-color-info-500, #90d5ff);
+  --color-info-600: var(--kuadra-color-info-600, #83c2e8);
+  --color-info-700: var(--kuadra-color-info-700, #6697b5);
+  --color-info-800: var(--kuadra-color-info-800, #48758c);
+  --color-info-900: var(--kuadra-color-info-900, #3c596b);
+  --color-warning-50: var(--kuadra-color-warning-50, #fffce9);
+  --color-warning-100: var(--kuadra-color-warning-100, #fff5ba);
+  --color-warning-200: var(--kuadra-color-warning-200, #fff099);
+  --color-warning-300: var(--kuadra-color-warning-300, #ffe96a);
+  --color-warning-400: var(--kuadra-color-warning-400, #ffe54d);
+  --color-warning-500: var(--kuadra-color-warning-500, #ffde21);
+  --color-warning-600: var(--kuadra-color-warning-600, #e8ca1e);
+  --color-warning-700: var(--kuadra-color-warning-700, #b59e17);
+  --color-warning-800: var(--kuadra-color-warning-800, #8c7a12);
+  --color-warning-900: var(--kuadra-color-warning-900, #6b5d0e);
+  --color-error-50: var(--kuadra-color-error-50, #fde9e6);
+  --color-error-100: var(--kuadra-color-error-100, #f9bab0);
+  --color-error-200: var(--kuadra-color-error-200, #f7998a);
+  --color-error-300: var(--kuadra-color-error-300, #f36a54);
+  --color-error-400: var(--kuadra-color-error-400, #f14d33);
+  --color-error-500: var(--kuadra-color-error-500, #ed2100);
+  --color-error-600: var(--kuadra-color-error-600, #d81e00);
+  --color-error-700: var(--kuadra-color-error-700, #a81700);
+  --color-error-800: var(--kuadra-color-error-800, #821200);
+  --color-error-900: var(--kuadra-color-error-900, #640e00);
+  --color-success-50: var(--kuadra-color-success-50, #f7fdf7);
+  --color-success-100: var(--kuadra-color-success-100, #e6f9e7);
+  --color-success-200: var(--kuadra-color-success-200, #d9f6dc);
+  --color-success-300: var(--kuadra-color-success-300, #c8f2cc);
+  --color-success-400: var(--kuadra-color-success-400, #bdefc2);
+  --color-success-500: var(--kuadra-color-success-500, #adebb3);
+  --color-success-600: var(--kuadra-color-success-600, #9dd6a3);
+  --color-success-700: var(--kuadra-color-success-700, #7ba77f);
+  --color-success-800: var(--kuadra-color-success-800, #5f8162);
+  --color-success-900: var(--kuadra-color-success-900, #49634b);
 
   --radius-md: 0.75rem;
 
@@ -67,6 +120,57 @@
   --kuadra-color-primary-700: #604ab5;
   --kuadra-color-primary-800: #4a3c8c;
   --kuadra-color-primary-900: #392e6b;
+  --kuadra-color-gray-50: #fafafa;
+  --kuadra-color-gray-100: #f0f0f0;
+  --kuadra-color-gray-200: #e9e9e9;
+  --kuadra-color-gray-300: #dfdfdf;
+  --kuadra-color-gray-400: #d9d9d9;
+  --kuadra-color-gray-500: #cfcfcf;
+  --kuadra-color-gray-600: #bcbcbc;
+  --kuadra-color-gray-700: #939393;
+  --kuadra-color-gray-800: #727272;
+  --kuadra-color-gray-900: #575757;
+  --kuadra-color-info-50: #f4fbff;
+  --kuadra-color-info-100: #ddf2ff;
+  --kuadra-color-info-200: #ccecff;
+  --kuadra-color-info-300: #b5e3ff;
+  --kuadra-color-info-400: #a6ddff;
+  --kuadra-color-info-500: #90d5ff;
+  --kuadra-color-info-600: #83c2e8;
+  --kuadra-color-info-700: #6697b5;
+  --kuadra-color-info-800: #48758c;
+  --kuadra-color-info-900: #3c596b;
+  --kuadra-color-warning-50: #fffce9;
+  --kuadra-color-warning-100: #fff5ba;
+  --kuadra-color-warning-200: #fff099;
+  --kuadra-color-warning-300: #ffe96a;
+  --kuadra-color-warning-400: #ffe54d;
+  --kuadra-color-warning-500: #ffde21;
+  --kuadra-color-warning-600: #e8ca1e;
+  --kuadra-color-warning-700: #b59e17;
+  --kuadra-color-warning-800: #8c7a12;
+  --kuadra-color-warning-900: #6b5d0e;
+  --kuadra-color-error-50: #fde9e6;
+  --kuadra-color-error-100: #f9bab0;
+  --kuadra-color-error-200: #f7998a;
+  --kuadra-color-error-300: #f36a54;
+  --kuadra-color-error-400: #f14d33;
+  --kuadra-color-error-500: #ed2100;
+  --kuadra-color-error-600: #d81e00;
+  --kuadra-color-error-700: #a81700;
+  --kuadra-color-error-800: #821200;
+  --kuadra-color-error-900: #640e00;
+  --kuadra-color-success-50: #f7fdf7;
+  --kuadra-color-success-100: #e6f9e7;
+  --kuadra-color-success-200: #d9f6dc;
+  --kuadra-color-success-300: #c8f2cc;
+  --kuadra-color-success-400: #bdefc2;
+  --kuadra-color-success-500: #adebb3;
+  --kuadra-color-success-600: #9dd6a3;
+  --kuadra-color-success-700: #7ba77f;
+  --kuadra-color-success-800: #5f8162;
+  --kuadra-color-success-900: #49634b;
+
   --kuadra-font-sans: Manrope, ui-sans-serif, system-ui;
   --kuadra-font-mono: "IBM Plex Mono", ui-monospace, monospace;
   --kuadra-space-null: 0rem;
@@ -87,6 +191,38 @@
   --kuadra-radius-m: 1.5rem;
   --kuadra-radius-l: 2.5rem;
   --kuadra-radius-full: 6.25rem;
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
 }
 
 @utility gap-null {
@@ -514,12 +650,24 @@
   margin-top: calc(var(--spacing-5xl) * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(var(--spacing-5xl) * var(--tw-space-y-reverse));
 }
-@utility rounded-radius-null { border-radius: var(--radius-null); }
-@utility rounded-radius-xs { border-radius: var(--radius-xs); }
-@utility rounded-radius-s { border-radius: var(--radius-s); }
-@utility rounded-radius-m { border-radius: var(--radius-m); }
-@utility rounded-radius-l { border-radius: var(--radius-l); }
-@utility rounded-radius-full { border-radius: var(--radius-full); }
+@utility rounded-radius-null {
+  border-radius: var(--radius-null);
+}
+@utility rounded-radius-xs {
+  border-radius: var(--radius-xs);
+}
+@utility rounded-radius-s {
+  border-radius: var(--radius-s);
+}
+@utility rounded-radius-m {
+  border-radius: var(--radius-m);
+}
+@utility rounded-radius-l {
+  border-radius: var(--radius-l);
+}
+@utility rounded-radius-full {
+  border-radius: var(--radius-full);
+}
 
 /* Defaults por estilo (sin enviar tokens en el mock) */
 html.modern {
@@ -534,3 +682,123 @@ html.classic {
   --kuadra-radius-full: 0rem;
 }
 
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+@utility typo-xxxs {
+  font-size: 10px;
+  line-height: 1.25;
+}
+@utility typo-xxs {
+  font-size: 13px;
+  line-height: 1.25;
+}
+@utility typo-xs {
+  font-size: 16px;
+  line-height: 1.25;
+}
+@utility typo-s {
+  font-size: 20px;
+  line-height: 1.25;
+}
+@utility typo-m {
+  font-size: 25px;
+  line-height: 1.25;
+}
+@utility typo-l {
+  font-size: 31px;
+  line-height: 1.25;
+}
+@utility typo-xl {
+  font-size: 39px;
+  line-height: 1.25;
+}
+@utility typo-xxl {
+  font-size: 49px;
+  line-height: 1.25;
+}
+@utility typo-xxxl {
+  font-size: 61px;
+  line-height: 1.25;
+}
+@utility typo-4xl {
+  font-size: 76px;
+  line-height: 1.25;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
