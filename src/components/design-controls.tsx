@@ -48,6 +48,7 @@ const SEMANTIC_LABELS: Record<SemanticScaleId, string> = {
   success: "Success",
 };
 
+const ADAPTIVE_ROUNDED = "modern:rounded-[var(--radius-md)] classic:rounded-none";
 type SemanticPaletteState = Record<
   SemanticScaleId,
   Record<SemanticTone, string>
@@ -218,7 +219,7 @@ export function DesignControls(props: { initial: InitialConfig }) {
   };
   return (
     <section className="space-y-6">
-      <div className="rounded-md border p-6 space-y-4">
+      <div className={`${ADAPTIVE_ROUNDED} border p-6 space-y-4`}>
         <h2 className="text-xl font-medium">Editar tokens (mock overrides)</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
           <label className="flex items-center gap-3">
@@ -227,7 +228,7 @@ export function DesignControls(props: { initial: InitialConfig }) {
               type="text"
               value={primary500}
               onChange={(e) => handlePrimaryChange("500", e.target.value)}
-              className="flex-1 rounded-md border px-2 py-1 bg-white dark:bg-neutral-900"
+              className={`flex-1 ${ADAPTIVE_ROUNDED} border px-2 py-1 bg-white dark:bg-neutral-900`}
               placeholder="e.g. #876dff"
             />
             <input
@@ -243,7 +244,7 @@ export function DesignControls(props: { initial: InitialConfig }) {
             <select
               value={style}
               onChange={(e) => setStyle(e.target.value as StyleKind)}
-              className="flex-1 rounded-md border px-2 py-1 bg-white dark:bg-neutral-900"
+              className={`flex-1 ${ADAPTIVE_ROUNDED} border px-2 py-1 bg-white dark:bg-neutral-900`}
             >
               <option value="moderno">
                 moderno (Manrope, bordes redondeados)
@@ -272,13 +273,13 @@ export function DesignControls(props: { initial: InitialConfig }) {
           </fieldset>
         </div>
       </div>
-      <section className="rounded-md border p-6 space-y-4">
+      <section className={`${ADAPTIVE_ROUNDED} border p-6 space-y-4`}>
         <h2 className="text-xl font-medium">Tokens activos</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
           <div className="flex items-center gap-3">
             <div
               aria-label="Color primario"
-              className="h-6 w-6 rounded-md border"
+              className={`h-6 w-6 ${ADAPTIVE_ROUNDED} border`}
               style={{ background: primary500 }}
             />
             <div>
@@ -315,10 +316,10 @@ export function DesignControls(props: { initial: InitialConfig }) {
               {PRIMARY_TONES.map((tone) => (
                 <div
                   key={tone}
-                  className="rounded-md border p-2 space-y-2 bg-white/60 dark:bg-neutral-900/40"
+                  className={`${ADAPTIVE_ROUNDED} border p-2 space-y-2 bg-white/60 dark:bg-neutral-900/40`}
                 >
                   <div
-                    className={`h-10 w-full rounded ${PRIMARY_BG_CLASS_MAP[tone]}`}
+                    className={`h-10 w-full ${ADAPTIVE_ROUNDED} ${PRIMARY_BG_CLASS_MAP[tone]}`}
                   />
                   <div className="text-xs font-semibold">primary-{tone}</div>
                   <div
@@ -334,7 +335,7 @@ export function DesignControls(props: { initial: InitialConfig }) {
             </div>
           </div>
         </div>
-        <div className="rounded-md border border-dashed p-3 text-xs text-gray-600">
+        <div className={`${ADAPTIVE_ROUNDED} border border-dashed p-3 text-xs text-gray-600`}>
           Nota: shadcn/ui instalado, componentes pendientes
         </div>
       </section>
@@ -347,7 +348,7 @@ export function DesignControls(props: { initial: InitialConfig }) {
             return (
               <div
                 key={scaleId}
-                className="rounded-xl border bg-white/70 dark:bg-neutral-900/40 p-4 space-y-3"
+                className={`${ADAPTIVE_ROUNDED} border bg-white/70 dark:bg-neutral-900/40 p-4 space-y-3`}
               >
                 <div className="flex items-baseline justify-between">
                   <h3 className="text-lg font-semibold">{label}</h3>
@@ -368,10 +369,10 @@ export function DesignControls(props: { initial: InitialConfig }) {
                     return (
                       <div
                         key={tone}
-                        className="flex items-center gap-3 rounded-lg border border-gray-100/70 dark:border-neutral-800/70 bg-white/80 dark:bg-neutral-900/50 px-3 py-2"
+                        className={`flex items-center gap-3 ${ADAPTIVE_ROUNDED} border border-gray-100/70 dark:border-neutral-800/70 bg-white/80 dark:bg-neutral-900/50 px-3 py-2`}
                       >
                         <div
-                          className="h-10 w-10 flex-shrink-0 rounded-md border border-black/5 shadow-sm"
+                          className={`h-10 w-10 flex-shrink-0 ${ADAPTIVE_ROUNDED} border border-black/5 shadow-sm`}
                           style={swatchStyle}
                         />
                         <div className="flex-1">
@@ -411,26 +412,26 @@ export function DesignControls(props: { initial: InitialConfig }) {
       <section className="space-y-4">
         <h2 className="text-xl font-medium">Foundations</h2>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-          <div className="rounded-md border p-4 col-span-3">
+          <div className={`${ADAPTIVE_ROUNDED} border p-4 col-span-3`}>
             <TypographyShowcase styleKind={style} />
           </div>
-          <div className="rounded-md border p-4 space-y-3">
+          <div className={`${ADAPTIVE_ROUNDED} border p-4 space-y-3`}>
             <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-200">
               Color
             </h3>
             <PrimaryColorRamp initial={primaryPalette} />
           </div>
-          <div className="rounded-md border p-4">
+          <div className={`${ADAPTIVE_ROUNDED} border p-4`}>
             <SpacingShowcase styleKind={style} />
           </div>
-          <div className="rounded-md border p-4">
+          <div className={`${ADAPTIVE_ROUNDED} border p-4`}>
             <RadiusShowcase styleKind={style} />
           </div>
         </div>
       </section>
       <section className="space-y-4">
         <h2 className="text-xl font-medium">UI Primitives</h2>
-        <div className="rounded-md border p-6 space-y-6">
+        <div className={`${ADAPTIVE_ROUNDED} border p-6 space-y-6`}>
           <div>
             <h3 className="text-lg font-semibold mb-4">Button Variants</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -585,7 +586,7 @@ export function DesignControls(props: { initial: InitialConfig }) {
       </section>
       <section className="space-y-4">
         <h2 className="text-xl font-medium">Composites</h2>
-        <div className="rounded-md border p-6 min-h-28">
+        <div className={`${ADAPTIVE_ROUNDED} border p-6 min-h-28`}>
           Tarjetas vacias para composites
         </div>
       </section>
@@ -603,3 +604,4 @@ function toHexOrDefault(input: string): string {
   }
   return "#876dff";
 }
+
