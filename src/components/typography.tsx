@@ -104,7 +104,7 @@ export function TypographyShowcase({
 }) {
   return (
     <div className="space-y-6 p-6 dark:border-neutral-800 dark:bg-neutral-900">
-      <span className="inline-flex items-center justify-center rounded-full bg-neutral-200 px-3 py-1 text-xs font-semibold uppercase tracking-tight text-neutral-700 dark:bg-neutral-800 dark:text-neutral-200">
+      <span className="inline-flex items-center justify-center modern:rounded-full classic:rounded-none bg-neutral-200 px-3 py-1 text-xs font-semibold uppercase tracking-tight text-neutral-700 dark:bg-neutral-800 dark:text-neutral-200">
         Typo/{styleKind === "moderno" ? "Modern" : "Classic"}
       </span>
       <div className="space-y-6">

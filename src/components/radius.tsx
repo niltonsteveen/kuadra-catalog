@@ -58,9 +58,9 @@ export function RadiusShowcase({ styleKind }: { styleKind: StyleKind }) {
               </div>
             </div>
             <div
-              className={`${tileTone} ${
+              className={`${tileTone} modern:${
                 RADIUS_CLASS_MAP[token.key]
-              } h-20 w-full`}
+              } classic:rounded-none h-20 w-full`}
             />
           </div>
         ))}

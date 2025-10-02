@@ -30,7 +30,9 @@ export function PrimaryColorRamp({ initial }: PrimaryColorRampProps) {
         const computed = getComputedStyle(document.documentElement);
         const next: PrimaryPalette = { ...fallbackRef.current };
         for (const tone of PRIMARY_TONES) {
-          const value = computed.getPropertyValue(`--kuadra-color-primary-${tone}`).trim();
+          const value = computed
+            .getPropertyValue(`--kuadra-color-primary-${tone}`)
+            .trim();
           if (value) {
             next[tone] = value;
           }
@@ -40,9 +42,13 @@ export function PrimaryColorRamp({ initial }: PrimaryColorRampProps) {
     };
 
     const handleCustom = (event: Event) => {
-      const detail = (event as CustomEvent<Partial<Record<string, string>>>).detail;
+      const detail = (event as CustomEvent<Partial<Record<string, string>>>)
+        .detail;
       if (detail) {
-        const normalized = normalizePrimaryPalette(detail as Partial<Record<string, string>>, fallbackRef.current);
+        const normalized = normalizePrimaryPalette(
+          detail as Partial<Record<string, string>>,
+          fallbackRef.current
+        );
         setPalette(normalized);
         fallbackRef.current = normalized;
       } else {
@@ -58,11 +64,17 @@ export function PrimaryColorRamp({ initial }: PrimaryColorRampProps) {
     };
 
     readFromCss();
-    window.addEventListener(PRIMARY_PALETTE_EVENT, handleCustom as EventListener);
+    window.addEventListener(
+      PRIMARY_PALETTE_EVENT,
+      handleCustom as EventListener
+    );
     window.addEventListener("storage", handleStorage);
 
     return () => {
-      window.removeEventListener(PRIMARY_PALETTE_EVENT, handleCustom as EventListener);
+      window.removeEventListener(
+        PRIMARY_PALETTE_EVENT,
+        handleCustom as EventListener
+      );
       window.removeEventListener("storage", handleStorage);
     };
   }, []);
@@ -70,13 +82,24 @@ export function PrimaryColorRamp({ initial }: PrimaryColorRampProps) {
   return (
     <div className="space-y-2">
       {PRIMARY_TONES.map((tone) => (
-        <div key={tone} className="flex items-center gap-4 rounded-md border px-3 py-2 bg-white/70 dark:bg-neutral-900/40">
-          <div className={`h-10 w-10 rounded-md border ${PRIMARY_BG_CLASS_MAP[tone]}`} />
+        <div
+          key={tone}
+          className="flex items-center gap-4 modern:rounded-md classic:rounded-none border px-3 py-2 bg-white/70 dark:bg-neutral-900/40"
+        >
+          <div
+            className={`h-10 w-10 modern:rounded-md classic:rounded-none border ${PRIMARY_BG_CLASS_MAP[tone]}`}
+          />
           <div className="flex-1">
-            <div className="text-xs font-semibold uppercase tracking-wide">primary-{tone}</div>
-            <div className="font-mono text-[11px] text-gray-600 dark:text-gray-300 break-all">{palette[tone]}</div>
+            <div className="text-xs font-semibold uppercase tracking-wide">
+              primary-{tone}
+            </div>
+            <div className="font-mono text-[11px] text-gray-600 dark:text-gray-300 break-all">
+              {palette[tone]}
+            </div>
           </div>
-          <div className={`text-sm font-semibold ${PRIMARY_TEXT_CLASS_MAP[tone]}`}>
+          <div
+            className={`text-sm font-semibold ${PRIMARY_TEXT_CLASS_MAP[tone]}`}
+          >
             Aa
           </div>
         </div>

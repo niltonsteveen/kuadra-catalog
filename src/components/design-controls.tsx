@@ -16,6 +16,7 @@ import { RadiusShowcase } from "@/components/radius";
 import { SpacingShowcase } from "@/components/spacing";
 import { TypographyShowcase } from "@/components/typography";
 import { Button } from "@/components/ui/button";
+import { StickyHeader } from "@/components/ui/sticky-header";
 import { Plus } from "lucide-react";
 const SEMANTIC_TONES = [
   "50",
@@ -48,7 +49,8 @@ const SEMANTIC_LABELS: Record<SemanticScaleId, string> = {
   success: "Success",
 };
 
-const ADAPTIVE_ROUNDED = "modern:rounded-[var(--radius-md)] classic:rounded-none";
+const ADAPTIVE_ROUNDED =
+  "modern:rounded-[var(--radius-md)] classic:rounded-none";
 type SemanticPaletteState = Record<
   SemanticScaleId,
   Record<SemanticTone, string>
@@ -335,7 +337,9 @@ export function DesignControls(props: { initial: InitialConfig }) {
             </div>
           </div>
         </div>
-        <div className={`${ADAPTIVE_ROUNDED} border border-dashed p-3 text-xs text-gray-600`}>
+        <div
+          className={`${ADAPTIVE_ROUNDED} border border-dashed p-3 text-xs text-gray-600`}
+        >
           Nota: shadcn/ui instalado, componentes pendientes
         </div>
       </section>
@@ -582,6 +586,68 @@ export function DesignControls(props: { initial: InitialConfig }) {
               </div>
             </div>
           </div>
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Sticky Header</h3>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Desktop Example
+                </h4>
+                <div
+                  className={`${ADAPTIVE_ROUNDED} border border-dashed border-primary-200 bg-white/70 dark:bg-neutral-900/40 p-4`}
+                >
+                  <div
+                    className={`h-40 overflow-y-auto bg-white dark:bg-neutral-900`}
+                  >
+                    <StickyHeader text="Lorem ipsum dolor sit amet consectetur. In lacus et sit pretium sagittis eu." />
+                    <div className="space-y-3 p-4 text-xs text-gray-600 dark:text-gray-400">
+                      <p>
+                        Contenido de ejemplo para mostrar cómo el encabezado se
+                        mantiene fijo dentro de un contenedor desplazable.
+                      </p>
+                      <p>
+                        Desplaza dentro de la tarjeta para ver el banner
+                        adherido al borde superior.
+                      </p>
+                      <p>
+                        Úsalo para mensajes globales, alertas de tenant o
+                        anuncios de campañas.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-2 md:max-w-sm">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Mobile Example
+                </h4>
+                <div
+                  className={`${ADAPTIVE_ROUNDED} border border-dashed border-primary-200 bg-white/70 dark:bg-neutral-900/40 p-4`}
+                >
+                  <div
+                    className={`h-40 overflow-y-auto bg-white dark:bg-neutral-900`}
+                  >
+                    <StickyHeader text="Lorem ipsum dolor sit amet consectetur." />
+                    <div className="space-y-3 p-4 text-xs text-gray-600 dark:text-gray-400">
+                      <p>
+                        El mismo componente dentro de un ancho reducido. Siempre
+                        ocupa el 100% del contenedor.
+                      </p>
+                      <p>
+                        Combínalo con wrappers responsivos para escenarios
+                        mobile o layouts segmentados.
+                      </p>
+                      <p>
+                        El color usa{" "}
+                        <code className="font-mono">bg-primary-300</code> según
+                        los tokens actuales.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
       <section className="space-y-4">
@@ -604,4 +670,3 @@ function toHexOrDefault(input: string): string {
   }
   return "#876dff";
 }
-

@@ -651,22 +651,22 @@
   margin-bottom: calc(var(--spacing-5xl) * var(--tw-space-y-reverse));
 }
 @utility rounded-radius-null {
-  border-radius: var(--radius-null);
+  border-radius: var(--kuadra-radius-null);
 }
 @utility rounded-radius-xs {
-  border-radius: var(--radius-xs);
+  border-radius: var(--kuadra-radius-xs);
 }
 @utility rounded-radius-s {
-  border-radius: var(--radius-s);
+  border-radius: var(--kuadra-radius-s);
 }
 @utility rounded-radius-m {
-  border-radius: var(--radius-m);
+  border-radius: var(--kuadra-radius-m);
 }
 @utility rounded-radius-l {
-  border-radius: var(--radius-l);
+  border-radius: var(--kuadra-radius-l);
 }
 @utility rounded-radius-full {
-  border-radius: var(--radius-full);
+  border-radius: var(--kuadra-radius-full);
 }
 
 /* Defaults por estilo (sin enviar tokens en el mock) */
