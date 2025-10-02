@@ -15,6 +15,7 @@ import { PrimaryColorRamp } from "@/components/primary-color-ramp";
 import { RadiusShowcase } from "@/components/radius";
 import { SpacingShowcase } from "@/components/spacing";
 import { TypographyShowcase } from "@/components/typography";
+import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { StickyHeader } from "@/components/ui/sticky-header";
 import { Plus } from "lucide-react";
@@ -656,6 +657,7 @@ export function DesignControls(props: { initial: InitialConfig }) {
           Tarjetas vacias para composites
         </div>
       </section>
+      <Footer />
     </section>
   );
 }

@@ -21,8 +21,6 @@ export type TypographyWeight =
   | "extrabold"
   | "black";
 
-export type TypographyStyleKind = "moderno" | "clasico";
-
 const WEIGHT_MAP: Record<TypographyWeight, number> = {
   thin: 100,
   extralight: 200,
@@ -33,11 +31,6 @@ const WEIGHT_MAP: Record<TypographyWeight, number> = {
   bold: 700,
   extrabold: 800,
   black: 900,
-};
-
-const FONT_FAMILY_BY_STYLE: Record<TypographyStyleKind, string> = {
-  moderno: "var(--kuadra-font-sans)",
-  clasico: "var(--kuadra-font-mono)",
 };
 
 export const TYPOGRAPHY_WEIGHTS: TypographyWeight[] = [
@@ -56,7 +49,6 @@ type TypographyProps<T extends ElementType> = {
   as?: T;
   size: TypographySize;
   weight?: TypographyWeight;
-  styleKind?: TypographyStyleKind;
   children: ReactNode;
 } & Omit<ComponentPropsWithoutRef<T>, "as">;
 
@@ -64,7 +56,6 @@ export function Typography<T extends ElementType = "p">({
   as,
   size,
   weight = "regular",
-  styleKind = "moderno",
   className,
   style,
   children,
@@ -72,7 +63,7 @@ export function Typography<T extends ElementType = "p">({
 }: TypographyProps<T>) {
   const Component = (as ?? "p") as ElementType;
   const mergedClassName = [
-    "leading-tight text-neutral-900 dark:text-neutral-100",
+    "font-sans leading-tight text-neutral-900 dark:text-neutral-100",
     className,
   ]
     .filter(Boolean)
@@ -80,7 +71,6 @@ export function Typography<T extends ElementType = "p">({
 
   const inlineStyle: CSSProperties = {
     ...(style ?? {}),
-    fontFamily: FONT_FAMILY_BY_STYLE[styleKind],
     fontSize: TYPOGRAPHY_SIZE_MAP[size].fontSize,
     lineHeight: TYPOGRAPHY_SIZE_MAP[size].lineHeight,
     fontWeight: WEIGHT_MAP[weight],
@@ -100,10 +90,14 @@ const WEIGHTS_PREVIEW: TypographyWeight[] = ["regular", "bold"];
 export function TypographyShowcase({
   styleKind,
 }: {
-  styleKind: TypographyStyleKind;
+  styleKind: "moderno" | "clasico";
 }) {
   return (
-    <div className="space-y-6 p-6 dark:border-neutral-800 dark:bg-neutral-900">
+    <div
+      className={`space-y-6 p-6 dark:border-neutral-800 dark:bg-neutral-900 ${
+        styleKind === "clasico" ? "classic" : ""
+      }`}
+    >
       <span className="inline-flex items-center justify-center modern:rounded-full classic:rounded-none bg-neutral-200 px-3 py-1 text-xs font-semibold uppercase tracking-tight text-neutral-700 dark:bg-neutral-800 dark:text-neutral-200">
         Typo/{styleKind === "moderno" ? "Modern" : "Classic"}
       </span>
@@ -117,12 +111,7 @@ export function TypographyShowcase({
               {size.toUpperCase()}
             </div>
             {WEIGHTS_PREVIEW.map((weight) => (
-              <Typography
-                key={weight}
-                size={size}
-                weight={weight}
-                styleKind={styleKind}
-              >
+              <Typography key={weight} size={size} weight={weight}>
                 {PREVIEW_TEXT}
               </Typography>
             ))}
