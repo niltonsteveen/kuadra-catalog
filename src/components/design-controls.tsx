@@ -18,6 +18,12 @@ import { TypographyShowcase } from "@/components/typography";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { StickyHeader } from "@/components/ui/sticky-header";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Plus } from "lucide-react";
 const SEMANTIC_TONES = [
   "50",
@@ -436,8 +442,8 @@ export function DesignControls(props: { initial: InitialConfig }) {
       </section>
       <section className="space-y-4">
         <h2 className="text-xl font-medium">UI Primitives</h2>
-        <div className={`${ADAPTIVE_ROUNDED} border p-6 space-y-6`}>
-          <div>
+        <div className="space-y-4">
+          <div className={`${ADAPTIVE_ROUNDED} border p-6`}>
             <h3 className="text-lg font-semibold mb-4">Button Variants</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="space-y-2">
@@ -564,7 +570,7 @@ export function DesignControls(props: { initial: InitialConfig }) {
               </div>
             </div>
           </div>
-          <div>
+          <div className={`${ADAPTIVE_ROUNDED} border p-6`}>
             <h3 className="text-lg font-semibold mb-4">Button Sizes</h3>
             <div className="flex flex-wrap gap-4 items-center">
               <div className="space-y-2">
@@ -587,7 +593,7 @@ export function DesignControls(props: { initial: InitialConfig }) {
               </div>
             </div>
           </div>
-          <div>
+          <div className={`${ADAPTIVE_ROUNDED} border p-6`}>
             <h3 className="text-lg font-semibold mb-4">Sticky Header</h3>
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
@@ -648,6 +654,32 @@ export function DesignControls(props: { initial: InitialConfig }) {
                 </div>
               </div>
             </div>
+          </div>
+          <div className={`${ADAPTIVE_ROUNDED} border p-6`}>
+            <h3 className="text-lg font-semibold mb-4">Accordion</h3>
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="item-1">
+                <AccordionTrigger>Lorem ipsum dolor sit amet</AccordionTrigger>
+                <AccordionContent>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-2">
+                <AccordionTrigger>Ut enim ad minim veniam</AccordionTrigger>
+                <AccordionContent>
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-3">
+                <AccordionTrigger>Duis aute irure dolor</AccordionTrigger>
+                <AccordionContent>
+                  Duis aute irure dolor in reprehenderit in voluptate velit esse
+                  cillum dolore eu fugiat nulla pariatur.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </div>
       </section>

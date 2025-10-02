@@ -1,6 +1,10 @@
 import { Typography } from "@/components/typography";
-import { Button } from "@/components/ui/button";
-import { SearchIcon } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import Link from "next/link";
 
 export default function Page() {
@@ -23,34 +27,19 @@ export default function Page() {
           </Link>
         </p>
         <div className="bg-success-500 p-s">
-          <Typography
-            size="xxl"
-            weight="medium"
-            styleKind="moderno"
-            className="!text-error-900"
-          >
+          <Typography size="xxl" weight="medium" className="!text-error-900">
             Texto en estilo clásico.
           </Typography>
         </div>
-        <div className="flex flex-wrap items-center gap-s">
-          <Button disabled>Lorem ipsum dollor sit</Button>
-          <Button suffixIcon={<SearchIcon />} prefixIcon={<SearchIcon />}>
-            Lorem ipsum dollor sit
-          </Button>
-          <Button variant={"destructive"}>Lorem ipsum dollor sit</Button>
-          <Button disabled size={"s"} variant={"secondary"}>
-            Lorem ipsum dollor sit
-          </Button>
-          <Button size={"s"} variant={"secondary"}>
-            Lorem ipsum dollor sit
-          </Button>
-          <Button size={"s"} variant={"destructive_secondary"}>
-            Lorem ipsum dollor sit
-          </Button>
-          <Button size={"s"} variant={"text"}>
-            Lorem ipsum dollor sit
-          </Button>
-          <Button variant={"link"}>Lorem ipsum dollor sit</Button>
+        <div className="">
+          <Accordion type="single" collapsible>
+            <AccordionItem value="item-1">
+              <AccordionTrigger>Is it accessible?</AccordionTrigger>
+              <AccordionContent>
+                Yes. It adheres to the WAI-ARIA design pattern.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </section>
     </main>
