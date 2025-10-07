@@ -17,6 +17,7 @@ import { SpacingShowcase } from "@/components/spacing";
 import { TypographyShowcase } from "@/components/typography";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
+import { IconButton } from "@/components/ui/icon-button";
 import { StickyHeader } from "@/components/ui/sticky-header";
 import {
   Accordion,
@@ -24,6 +25,39 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Input } from "@/components/ui/input";
+import {
+  Command,
+  CommandDialog,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+} from "@/components/ui/command";
+import { Separator } from "@/components/ui/separator";
+import { Divider } from "@/components/ui/divider";
+import {
+  SearchBar,
+  SearchBarTrigger,
+  SearchBarDriver,
+  SearchBarContent,
+  SearchBarResultItem,
+  SearchBarResultGroup,
+} from "@/components/ui/search-bar";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@/components/ui/popover";
 import { Plus } from "lucide-react";
 const SEMANTIC_TONES = [
   "50",
@@ -594,6 +628,63 @@ export function DesignControls(props: { initial: InitialConfig }) {
             </div>
           </div>
           <div className={`${ADAPTIVE_ROUNDED} border p-6`}>
+            <h3 className="text-lg font-semibold mb-4">IconButton Variants</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Default
+                </h4>
+                <div className="flex flex-col gap-2">
+                  <IconButton>
+                    <Plus />
+                  </IconButton>
+                  <IconButton disabled>
+                    <Plus />
+                  </IconButton>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Default Destructive
+                </h4>
+                <div className="flex flex-col gap-2">
+                  <IconButton variant="defaultDestructive">
+                    <Plus />
+                  </IconButton>
+                  <IconButton variant="defaultDestructive" disabled>
+                    <Plus />
+                  </IconButton>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Secondary
+                </h4>
+                <div className="flex flex-col gap-2">
+                  <IconButton variant="secondary">
+                    <Plus />
+                  </IconButton>
+                  <IconButton variant="secondary" disabled>
+                    <Plus />
+                  </IconButton>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Secondary Destructive
+                </h4>
+                <div className="flex flex-col gap-2">
+                  <IconButton variant="secondaryDestructive">
+                    <Plus />
+                  </IconButton>
+                  <IconButton variant="secondaryDestructive" disabled>
+                    <Plus />
+                  </IconButton>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={`${ADAPTIVE_ROUNDED} border p-6`}>
             <h3 className="text-lg font-semibold mb-4">Sticky Header</h3>
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
@@ -680,6 +771,234 @@ export function DesignControls(props: { initial: InitialConfig }) {
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
+          </div>
+          <div className={`${ADAPTIVE_ROUNDED} border p-6`}>
+            <h3 className="text-lg font-semibold mb-4">Input</h3>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Default Input
+                </h4>
+                <Input placeholder="Enter text..." />
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Input with Prefix Icon
+                </h4>
+                <Input
+                  placeholder="Search..."
+                  prefixIcon={
+                    <IconButton variant={"secondary"}>
+                      <Plus />
+                    </IconButton>
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Input with Suffix Icon
+                </h4>
+                <Input
+                  placeholder="Enter text..."
+                  suffixIcon={
+                    <IconButton variant={"secondary"}>
+                      <Plus />
+                    </IconButton>
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Input with Both Icons
+                </h4>
+                <Input
+                  placeholder="Search..."
+                  prefixIcon={
+                    <IconButton variant={"secondary"}>
+                      <Plus />
+                    </IconButton>
+                  }
+                  suffixIcon={
+                    <IconButton variant={"secondary"}>
+                      <Plus />
+                    </IconButton>
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Disabled Input
+                </h4>
+                <Input placeholder="Disabled input" disabled />
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Input with Value
+                </h4>
+                <Input value="Sample text" readOnly />
+              </div>
+            </div>
+          </div>
+          <div className={`${ADAPTIVE_ROUNDED} border p-6`}>
+            <h3 className="text-lg font-semibold mb-4">Command</h3>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Command Dialog
+                </h4>
+                <CommandDialog>
+                  <CommandInput placeholder="Type a command or search..." />
+                  <CommandList>
+                    <CommandEmpty>No results found.</CommandEmpty>
+                    <CommandGroup>
+                      <CommandItem>Calendar</CommandItem>
+                      <CommandItem>Search Emoji</CommandItem>
+                      <CommandItem>Calculator</CommandItem>
+                    </CommandGroup>
+                  </CommandList>
+                </CommandDialog>
+              </div>
+            </div>
+          </div>
+          <div className={`${ADAPTIVE_ROUNDED} border p-6`}>
+            <h3 className="text-lg font-semibold mb-4">Separator</h3>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Horizontal Separator
+                </h4>
+                <div className="flex items-center space-x-4">
+                  <span>Item 1</span>
+                  <Separator orientation="horizontal" className="w-16" />
+                  <span>Item 2</span>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Vertical Separator
+                </h4>
+                <div className="flex items-center space-x-4 h-8">
+                  <span>Item 1</span>
+                  <Separator orientation="vertical" />
+                  <span>Item 2</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={`${ADAPTIVE_ROUNDED} border p-6`}>
+            <h3 className="text-lg font-semibold mb-4">Divider</h3>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Horizontal Dividers
+                </h4>
+                <div className="space-y-2">
+                  <div>Content above</div>
+                  <Divider size="s" />
+                  <div>Content below</div>
+                  <Divider size="m" />
+                  <div>More content</div>
+                  <Divider size="l" />
+                  <div>Final content</div>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Vertical Dividers
+                </h4>
+                <div className="flex items-center space-x-4 h-16">
+                  <span>Left</span>
+                  <Divider orientation="vertical" size="s" />
+                  <span>Center</span>
+                  <Divider orientation="vertical" size="m" />
+                  <span>Right</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={`${ADAPTIVE_ROUNDED} border p-6 bg-gray-100`}>
+            <h3 className="text-lg font-semibold mb-4">SearchBar</h3>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Open Variant
+                </h4>
+                <SearchBar variant="open">
+                  <SearchBarTrigger asChild>
+                    <SearchBarDriver />
+                  </SearchBarTrigger>
+                  <SearchBarContent>
+                    <SearchBarResultGroup label="Recent">
+                      <SearchBarResultItem>Item 1</SearchBarResultItem>
+                      <SearchBarResultItem>Item 2</SearchBarResultItem>
+                    </SearchBarResultGroup>
+                  </SearchBarContent>
+                </SearchBar>
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Nested Variant
+                </h4>
+                <SearchBar variant="nested">
+                  <SearchBarTrigger asChild>
+                    <SearchBarDriver placeholder="Search..." />
+                  </SearchBarTrigger>
+                  <SearchBarContent>
+                    <SearchBarResultItem>Result 1</SearchBarResultItem>
+                    <SearchBarResultItem>Result 2</SearchBarResultItem>
+                  </SearchBarContent>
+                </SearchBar>
+              </div>
+            </div>
+          </div>
+          <div className={`${ADAPTIVE_ROUNDED} border p-6`}>
+            <h3 className="text-lg font-semibold mb-4">Dialog</h3>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Basic Dialog
+                </h4>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button>Open Dialog</Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Dialog Title</DialogTitle>
+                      <DialogDescription>
+                        This is a description of the dialog content.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="py-4">
+                      <p>Dialog content goes here.</p>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </div>
+            </div>
+          </div>
+          <div className={`${ADAPTIVE_ROUNDED} border p-6`}>
+            <h3 className="text-lg font-semibold mb-4">Popover</h3>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Basic Popover
+                </h4>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button>Open Popover</Button>
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <div className="space-y-2">
+                      <h4 className="font-medium">Popover Content</h4>
+                      <p className="text-sm text-muted-foreground">
+                        This is the content inside the popover.
+                      </p>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </div>
+            </div>
           </div>
         </div>
       </section>
