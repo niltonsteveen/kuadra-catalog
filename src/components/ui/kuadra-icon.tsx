@@ -18,6 +18,7 @@ const KuadraIcon = React.forwardRef<HTMLDivElement, IconProps>(
           "h-5 w-5 text-xl": size === "s",
           "h-4 w-4 text-base": size === "xs",
         })}
+        ref={ref}
       >
         <em className={cn(name, className)} />
       </figure>

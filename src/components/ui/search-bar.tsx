@@ -17,7 +17,7 @@ import { PopoverContent } from "./popover";
 import { Input } from "./input";
 import { Typography } from "../typography";
 import { Button } from "./button";
-import { Plus, Search, X } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { IconButton } from "./icon-button";
 
 // ---------------------------------------------------------------------
@@ -55,15 +55,13 @@ type SearchBarProps = VariantProps<typeof searchBarResultItemVariants> &
 // ---------------------------------------------------------------------
 // 4) SearchBar: El contenedor principal (Popover Root), con "variant" en contexto
 // ---------------------------------------------------------------------
-const SearchBar = React.forwardRef<never, SearchBarProps>(
-  ({ variant, children, ...props }, _ref) => {
-    return (
-      <SearchBarVariantContext.Provider value={variant}>
-        <PopoverPrimitive.Root {...props}>{children}</PopoverPrimitive.Root>
-      </SearchBarVariantContext.Provider>
-    );
-  }
-);
+function SearchBar({ variant, children, ...props }: SearchBarProps) {
+  return (
+    <SearchBarVariantContext.Provider value={variant}>
+      <PopoverPrimitive.Root {...props}>{children}</PopoverPrimitive.Root>
+    </SearchBarVariantContext.Provider>
+  );
+}
 SearchBar.displayName = "SearchBar";
 
 // ---------------------------------------------------------------------
@@ -89,6 +87,7 @@ const SearchBarDriver = React.forwardRef<
     { className, value, placeholder, onClear, showPrefix = true, ...props },
     ref
   ) => {
+    const showClear = Boolean(onClear) || Boolean(value);
     return (
       <Input
         ref={ref}
@@ -97,17 +96,29 @@ const SearchBarDriver = React.forwardRef<
         {...props}
         value={value}
         prefixIcon={
-          <IconButton
-            variant={"secondary"}
-            className="text-gray-900 dark:text-white"
-          >
-            <Search />
-          </IconButton>
+          showPrefix ? (
+            <IconButton
+              variant={"secondary"}
+              className="text-gray-900 dark:text-white"
+            >
+              <Search />
+            </IconButton>
+          ) : null
         }
         suffixIcon={
-          <IconButton variant={"secondary"} className="dark:text-white">
-            <X />
-          </IconButton>
+          showClear ? (
+            <IconButton
+              variant={"secondary"}
+              className="dark:text-white"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onClear?.();
+              }}
+            >
+              <X />
+            </IconButton>
+          ) : null
         }
       />
     );
@@ -225,7 +236,7 @@ type SearchBarResultGroupProps = {
 const SearchBarResultGroup = React.forwardRef<
   React.ComponentRef<typeof CommandGroup>,
   SearchBarResultGroupProps
->(({ className, label, children, variant, ...props }, ref) => (
+>(({ label, children, variant, ...props }, ref) => (
   <CommandGroup className="" ref={ref} {...props}>
     {label && (
       <Typography size="xxs" weight="medium" className="!text-gray-700">
@@ -265,7 +276,13 @@ const SearchBarFooterButton = React.forwardRef<
   React.ComponentRef<typeof Button>,
   React.ComponentPropsWithoutRef<typeof Button>
 >(({ className, children, ...props }, ref) => (
-  <Button variant="text" size="m" className=" w-full" ref={ref} {...props}>
+  <Button
+    variant="text"
+    size="m"
+    className={cn("w-full", className)}
+    ref={ref}
+    {...props}
+  >
     <Typography size="xs" weight="bold" className="!text-gray-700">
       {children}
     </Typography>
