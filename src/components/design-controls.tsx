@@ -59,7 +59,9 @@ import {
   PopoverContent,
 } from "@/components/ui/popover";
 import CounterV2 from "@/components/ui/counter";
+import ModernPrice from "@/components/ui/modern-price";
 import { Plus } from "lucide-react";
+import ModernSizeSelector from "@/components/ui/modern-size-selector";
 const SEMANTIC_TONES = [
   "50",
   "100",
@@ -176,6 +178,7 @@ export function DesignControls(props: { initial: InitialConfig }) {
     style === "clasico"
       ? { sans: "IBM Plex Mono", heading: "IBM Plex Mono" }
       : { sans: "Manrope", heading: "Manrope" };
+  const [sizeControlled, setSizeControlled] = useState("l");
   useEffect(() => {
     try {
       const root = document.documentElement;
@@ -336,6 +339,7 @@ export function DesignControls(props: { initial: InitialConfig }) {
               </div>
             </div>
           </div>
+
           <div>
             <div className="text-gray-500">style</div>
             <div className="font-mono text-xs">{style}</div>
@@ -1001,35 +1005,122 @@ export function DesignControls(props: { initial: InitialConfig }) {
               </div>
             </div>
           </div>
-          <div className={`${ADAPTIVE_ROUNDED} border p-6`}>
-            <h3 className="text-lg font-semibold mb-4">Counter</h3>
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
-                  Default Counter
-                </h4>
-                <CounterV2 />
-              </div>
-              <div className="space-y-2">
-                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
-                  Counter with Initial Value
-                </h4>
-                <CounterV2 value={5} />
-              </div>
-              <div className="space-y-2">
-                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
-                  Editable Counter
-                </h4>
-                <CounterV2 isEditable />
-              </div>
-              <div className="space-y-2">
-                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
-                  Counter with Remove Disabled
-                </h4>
-                <CounterV2 disableMinus />
+          <section className="grid grid-cols-3 gap-xs">
+            <div className={`${ADAPTIVE_ROUNDED} border p-6`}>
+              <h3 className="text-lg font-semibold mb-4">Counter</h3>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                    Default Counter
+                  </h4>
+                  <CounterV2 />
+                </div>
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                    Counter with Initial Value
+                  </h4>
+                  <CounterV2 value={5} />
+                </div>
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                    Editable Counter
+                  </h4>
+                  <CounterV2 isEditable />
+                </div>
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                    Counter with Remove Disabled
+                  </h4>
+                  <CounterV2 disableMinus />
+                </div>
               </div>
             </div>
-          </div>
+            <div className={`${ADAPTIVE_ROUNDED} border p-6`}>
+              <h3 className="text-lg font-semibold mb-4">Modern Price</h3>
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                    Regular
+                  </h4>
+                  <div className="grid grid-cols-[auto,1fr] items-baseline gap-x-4 gap-y-2">
+                    <span className="text-xs text-gray-500">s</span>
+                    <ModernPrice size="s" type="regular" price="$99.900" />
+                    <span className="text-xs text-gray-500">m</span>
+                    <ModernPrice size="m" type="regular" price="$99.900" />
+                    <span className="text-xs text-gray-500">l</span>
+                    <ModernPrice size="l" type="regular" price="$99.900" />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                    Sale
+                  </h4>
+                  <div className="grid grid-cols-[auto,1fr] items-baseline gap-x-4 gap-y-2">
+                    <span className="text-xs text-gray-500">s</span>
+                    <ModernPrice
+                      size="s"
+                      type="sale"
+                      oldPrice="$299.900"
+                      price="$99.900"
+                    />
+                    <span className="text-xs text-gray-500">m</span>
+                    <ModernPrice
+                      size="m"
+                      type="sale"
+                      oldPrice="$299.900"
+                      price="$99.900"
+                    />
+                    <span className="text-xs text-gray-500">l</span>
+                    <ModernPrice
+                      size="l"
+                      type="sale"
+                      oldPrice="$299.900"
+                      price="$99.900"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={`${ADAPTIVE_ROUNDED} border p-6`}>
+              <h3 className="text-lg font-semibold mb-4">
+                Modern Size Selector
+              </h3>
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                    Básico (no controlado)
+                  </h4>
+                <ModernSizeSelector
+                  options={[
+                    { id: "s", label: "S" },
+                    { id: "m", label: "M" },
+                    { id: "l", label: "L" },
+                    { id: "xl", label: "XL" },
+                    { id: "xxl", label: "XXL", disabled: true },
+                  ]}
+                  defaultValue="m"
+                />
+                </div>
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                    Controlado
+                  </h4>
+                <ModernSizeSelector
+                  options={[
+                    { id: "s", label: "S" },
+                    { id: "m", label: "M" },
+                    { id: "l", label: "L" },
+                    { id: "xl", label: "XL" },
+                  ]}
+                  value={sizeControlled}
+                  onChange={setSizeControlled}
+                  ariaLabel="Selecciona tu talla"
+                />
+                </div>
+                
+              </div>
+            </div>
+          </section>
         </div>
       </section>
       <section className="space-y-4">
