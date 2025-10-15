@@ -58,6 +58,7 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from "@/components/ui/popover";
+import CounterV2 from "@/components/ui/counter";
 import { Plus } from "lucide-react";
 const SEMANTIC_TONES = [
   "50",
@@ -997,6 +998,35 @@ export function DesignControls(props: { initial: InitialConfig }) {
                     </div>
                   </PopoverContent>
                 </Popover>
+              </div>
+            </div>
+          </div>
+          <div className={`${ADAPTIVE_ROUNDED} border p-6`}>
+            <h3 className="text-lg font-semibold mb-4">Counter</h3>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Default Counter
+                </h4>
+                <CounterV2 />
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Counter with Initial Value
+                </h4>
+                <CounterV2 value={5} />
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Editable Counter
+                </h4>
+                <CounterV2 isEditable />
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Counter with Remove Disabled
+                </h4>
+                <CounterV2 disableMinus />
               </div>
             </div>
           </div>
