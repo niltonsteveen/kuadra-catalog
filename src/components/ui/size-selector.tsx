@@ -21,7 +21,7 @@ export type ModernSizeSelectorProps = {
 
 const BASE_PILL = "p-xs typo-xxs";
 
-export default function ModernSizeSelector({
+export default function SizeSelector({
   options,
   value,
   defaultValue,
@@ -90,7 +90,7 @@ export default function ModernSizeSelector({
     <div
       role="radiogroup"
       aria-label={ariaLabel}
-      className={cn("inline-flex flex-wrap gap-xs", className)}
+      className={cn("flex w-full gap-xs", className)}
       data-testid="modern-size-selector"
     >
       {name ? (
@@ -113,7 +113,7 @@ export default function ModernSizeSelector({
             tabIndex={tabIndex}
             data-testid={`modern-size-option-${opt.id}`}
             className={cn(
-              "inline-flex select-none items-center justify-center modern:rounded-radius-s classic:rounded-none transition-colors outline-none ",
+              "inline-flex select-none flex-1 basis-0 min-w-0 items-center justify-center modern:rounded-radius-s classic:rounded-none transition-colors outline-none ",
               BASE_PILL,
               optionClass(isSelected, isDisabled)
             )}
@@ -145,7 +145,7 @@ export default function ModernSizeSelector({
               }
             }}
           >
-            <span className="min-w-[23px] text-center">{opt.label}</span>
+            <span className="text-center w-full">{opt.label}</span>
           </button>
         );
       })}

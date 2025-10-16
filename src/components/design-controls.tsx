@@ -59,9 +59,11 @@ import {
   PopoverContent,
 } from "@/components/ui/popover";
 import CounterV2 from "@/components/ui/counter";
-import ModernPrice from "@/components/ui/modern-price";
+import Price from "@/components/ui/price";
 import { Plus } from "lucide-react";
-import ModernSizeSelector from "@/components/ui/modern-size-selector";
+import SizeSelector from "@/components/ui/size-selector";
+import CheckoutProductCard from "@/components/checkout/checkout-product-card";
+import ProductCard from "@/components/catalog/product-card";
 const SEMANTIC_TONES = [
   "50",
   "100",
@@ -1036,7 +1038,7 @@ export function DesignControls(props: { initial: InitialConfig }) {
               </div>
             </div>
             <div className={`${ADAPTIVE_ROUNDED} border p-6`}>
-              <h3 className="text-lg font-semibold mb-4">Modern Price</h3>
+              <h3 className="text-lg font-semibold mb-4">Price</h3>
               <div className="space-y-6">
                 <div className="space-y-2">
                   <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
@@ -1044,11 +1046,11 @@ export function DesignControls(props: { initial: InitialConfig }) {
                   </h4>
                   <div className="grid grid-cols-[auto,1fr] items-baseline gap-x-4 gap-y-2">
                     <span className="text-xs text-gray-500">s</span>
-                    <ModernPrice size="s" type="regular" price="$99.900" />
+                    <Price size="s" type="regular" price="$99.900" />
                     <span className="text-xs text-gray-500">m</span>
-                    <ModernPrice size="m" type="regular" price="$99.900" />
+                    <Price size="m" type="regular" price="$99.900" />
                     <span className="text-xs text-gray-500">l</span>
-                    <ModernPrice size="l" type="regular" price="$99.900" />
+                    <Price size="l" type="regular" price="$99.900" />
                   </div>
                 </div>
                 <div className="space-y-2">
@@ -1057,21 +1059,21 @@ export function DesignControls(props: { initial: InitialConfig }) {
                   </h4>
                   <div className="grid grid-cols-[auto,1fr] items-baseline gap-x-4 gap-y-2">
                     <span className="text-xs text-gray-500">s</span>
-                    <ModernPrice
+                    <Price
                       size="s"
                       type="sale"
                       oldPrice="$299.900"
                       price="$99.900"
                     />
                     <span className="text-xs text-gray-500">m</span>
-                    <ModernPrice
+                    <Price
                       size="m"
                       type="sale"
                       oldPrice="$299.900"
                       price="$99.900"
                     />
                     <span className="text-xs text-gray-500">l</span>
-                    <ModernPrice
+                    <Price
                       size="l"
                       type="sale"
                       oldPrice="$299.900"
@@ -1082,15 +1084,13 @@ export function DesignControls(props: { initial: InitialConfig }) {
               </div>
             </div>
             <div className={`${ADAPTIVE_ROUNDED} border p-6`}>
-              <h3 className="text-lg font-semibold mb-4">
-                Modern Size Selector
-              </h3>
+              <h3 className="text-lg font-semibold mb-4">Size Selector</h3>
               <div className="space-y-6">
                 <div className="space-y-2">
                   <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
                     Básico (no controlado)
                   </h4>
-                <ModernSizeSelector
+                <SizeSelector
                   options={[
                     { id: "s", label: "S" },
                     { id: "m", label: "M" },
@@ -1105,7 +1105,7 @@ export function DesignControls(props: { initial: InitialConfig }) {
                   <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
                     Controlado
                   </h4>
-                <ModernSizeSelector
+                <SizeSelector
                   options={[
                     { id: "s", label: "S" },
                     { id: "m", label: "M" },
@@ -1125,8 +1125,91 @@ export function DesignControls(props: { initial: InitialConfig }) {
       </section>
       <section className="space-y-4">
         <h2 className="text-xl font-medium">Composites</h2>
-        <div className={`${ADAPTIVE_ROUNDED} border p-6 min-h-28`}>
-          Tarjetas vacias para composites
+        <div className={`${ADAPTIVE_ROUNDED} border p-6 space-y-6`}>
+          <h3 className="text-lg font-semibold">Checkout Product Cards</h3>
+          <CheckoutProductCard
+            imageUrl="/images/placeholder.png"
+            imageAlt="Producto demo"
+            title="Product Name and other details"
+            price="$99.900"
+            quantity={1}
+            onIncrement={() => {}}
+            onDecrement={() => {}}
+          />
+        </div>
+        <div className={`${ADAPTIVE_ROUNDED} border p-6 space-y-6`}>
+          <h3 className="text-lg font-semibold">Product Cards</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <ProductCard
+              id="p-s"
+              title="Product Name and other details"
+              imageUrls={["/images/placeholder.png", "/images/placeholder.png"]}
+              priceType="regular"
+              price="$99.900"
+              size="s"
+            />
+            <ProductCard
+              id="p-s2"
+              title="Product Name and other details"
+              imageUrls={["/images/placeholder.png", "/images/placeholder.png"]}
+              priceType="regular"
+              price="$99.900"
+              size="s"
+              sizes={[
+                { id: "s", label: "S" },
+                { id: "m", label: "M" },
+                { id: "l", label: "L" },
+                { id: "xl", label: "XL" },
+                { id: "xxl", label: "XXL", disabled: true },
+              ]}
+            />
+            <ProductCard
+              id="p-m"
+              title="Product Name and other details"
+              imageUrls={["/images/placeholder.png", "/images/placeholder.png"]}
+              priceType="regular"
+              price="$99.900"
+              size="m"
+            />
+            <ProductCard
+              id="p-m2"
+              title="Product Name and other details"
+              imageUrls={["/images/placeholder.png", "/images/placeholder.png"]}
+              priceType="regular"
+              price="$99.900"
+              size="m"
+              sizes={[
+                { id: "s", label: "S" },
+                { id: "m", label: "M" },
+                { id: "l", label: "L" },
+                { id: "xl", label: "XL" },
+                { id: "xxl", label: "XXL", disabled: true },
+              ]}
+            />
+            <ProductCard
+              id="p-l"
+              title="Product Name and other details"
+              imageUrls={["/images/placeholder.png", "/images/placeholder.png"]}
+              priceType="regular"
+              price="$99.900"
+              size="l"
+            />
+            <ProductCard
+              id="p-l2"
+              title="Product Name and other details"
+              imageUrls={["/images/placeholder.png", "/images/placeholder.png"]}
+              priceType="regular"
+              price="$99.900"
+              size="l"
+              sizes={[
+                { id: "s", label: "S" },
+                { id: "m", label: "M" },
+                { id: "l", label: "L" },
+                { id: "xl", label: "XL" },
+                { id: "xxl", label: "XXL", disabled: true },
+              ]}
+            />
+          </div>
         </div>
       </section>
       <Footer />

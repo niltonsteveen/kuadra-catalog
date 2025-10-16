@@ -1,29 +1,29 @@
-# ModernSizeSelector
+# SizeSelector
 
 Selector de talla en formato pills, con navegación por teclado y estados visuales consistentes con los tokens del proyecto.
 
 ## Uso básico
 
 ```tsx
-import ModernSizeSelector from "@/components/ui/modern-size-selector";
+import SizeSelector from "@/components/ui/size-selector";
 
-<ModernSizeSelector
-  options={[
+<SizeSelector
+  options=[
     { id: "s", label: "S" },
     { id: "m", label: "M" },
     { id: "l", label: "L" },
     { id: "xl", label: "XL" },
     { id: "xxl", label: "XXL", disabled: true },
-  ]}
+  ]
   defaultValue="m"
-/>;
+/>
 ```
 
 ## Controlado
 
 ```tsx
 const [size, setSize] = useState("l");
-<ModernSizeSelector
+<SizeSelector
   value={size}
   onChange={setSize}
   options={[{ id: "s", label: "S" }, { id: "m", label: "M" }]}
@@ -31,4 +31,3 @@ const [size, setSize] = useState("l");
 />;
 ```
 
-<!-- Variante única por defecto (sin props de variante) -->

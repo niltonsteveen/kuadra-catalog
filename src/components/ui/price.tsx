@@ -18,7 +18,7 @@ const SIZE_CLASS: Record<Size, string> = {
   l: "typo-m font-normal",
 };
 
-export default function ModernPrice({
+export default function Price({
   size,
   type,
   price,
