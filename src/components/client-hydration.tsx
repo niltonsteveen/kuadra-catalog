@@ -71,7 +71,7 @@ export function ClientHydration() {
       body.classList.add(current === 'clasico' ? 'font-mono' : 'font-sans');
       root.classList.remove('modern', 'classic');
       root.classList.add(current === 'clasico' ? 'classic' : 'modern');
-    } catch (_) {}
+    } catch {}
   }, []);
 
   return null;
