@@ -144,7 +144,7 @@ export default function TopBarMenu({
                 asChild
                 data-testid={`topbar-menu:more-item-${i.id}`}
               >
-                <a href={i.href ?? "#"} onClick={() => onSelect?.(i.id)}>
+                <a href={i.href ?? `c/${i.id}`} onClick={() => onSelect?.(i.id)}>
                   {i.label}
                 </a>
               </DropdownMenuItem>

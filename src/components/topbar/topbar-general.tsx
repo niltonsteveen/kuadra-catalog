@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/drawer";
 import { AlignJustify, Search, ShoppingCart } from "lucide-react";
 import { IconButton } from "../ui/icon-button";
+import { usePathname, useRouter } from "next/navigation";
 
 export type TopBarGeneralProps = {
   logo: React.ReactNode;
@@ -32,6 +33,16 @@ export default function TopBarGeneral({
   forceMobile = false,
   className,
 }: TopBarGeneralProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const parts = pathname?.split("/").filter(Boolean) ?? [];
+  const tenant = parts[0] ?? "";
+  const base = tenant ? `/${tenant}` : "";
+  const currentActive = parts[1] === "c" && parts[2] ? parts[2] : "home";
+  const handleSelect = (id: string) => {
+    const href = id === "home" ? base : `${base}/c/${id}`;
+    router.push(href);
+  };
   return (
     <div
       role="navigation"
@@ -86,14 +97,14 @@ export default function TopBarGeneral({
               </div>
               <TopBarMenu
                 items={menuItems}
-                activeId={activeId}
-                onSelect={() => {}}
+                activeId={currentActive}
+                onSelect={handleSelect}
                 className="flex flex-col gap-1"
               />
             </DrawerContent>
           </Drawer>
         ) : (
-          <TopBarMenu items={menuItems} activeId={activeId} />
+          <TopBarMenu items={menuItems} activeId={currentActive} onSelect={handleSelect} />
         )}
       </div>
 

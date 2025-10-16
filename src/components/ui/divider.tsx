@@ -27,7 +27,7 @@ const Divider = React.forwardRef<
       decorative={decorative}
       orientation={orientation}
       className={clsx(
-        "shrink-0 rounded-k-full bg-gray-200",
+        "shrink-0 rounded-k-full bg-gray-500",
         orientation === "horizontal"
           ? size === "s"
             ? "h-[1px] w-full"
