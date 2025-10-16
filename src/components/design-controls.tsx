@@ -15,7 +15,7 @@ import { PrimaryColorRamp } from "@/components/primary-color-ramp";
 import { RadiusShowcase } from "@/components/radius";
 import { SpacingShowcase } from "@/components/spacing";
 import { TypographyShowcase } from "@/components/typography";
-import { Footer } from "@/components/footer";
+import { Footer } from "@/components/footer.client";
 import { Button } from "@/components/ui/button";
 import { IconButton } from "@/components/ui/icon-button";
 import { StickyHeader } from "@/components/ui/sticky-header";

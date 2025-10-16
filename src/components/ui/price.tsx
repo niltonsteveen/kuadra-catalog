@@ -27,7 +27,13 @@ export default function Price({
 }: ModernPriceProps) {
   if (type === "regular") {
     return (
-      <span className={cn(SIZE_CLASS[size], "text-black", className)}>
+      <span
+        className={cn(
+          SIZE_CLASS[size],
+          "text-black dark:text-gray-100",
+          className
+        )}
+      >
         {price}
       </span>
     );
@@ -39,7 +45,7 @@ export default function Price({
   return (
     <span className={cn("inline-flex items-baseline gap-xs", className)}>
       {oldPrice ? (
-        <span className={cn(SIZE_CLASS[size], "text-gray-700 line-through")}> 
+        <span className={cn(SIZE_CLASS[size], "text-gray-700 line-through")}>
           {oldPrice}
         </span>
       ) : null}

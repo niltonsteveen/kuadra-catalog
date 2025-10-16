@@ -129,7 +129,10 @@ export default function ProductCard({
           <Button
             aria-label="Agregar al carrito"
             onClick={() => onAddToCart?.(id)}
-            className="mt-xs w-full transition flex items-center justify-center gap-2 modern:typo-s classic:typo-xs"
+            className={cn(
+              "mt-xs w-full transition flex items-center justify-center gap-2",
+              size === "s" ? "modern:typo-xs classic:typo-xs" : "modern:typo-s classic:typo-xs"
+            )}
           >
             Agregar al carrito
             <ShoppingCart size={16} />

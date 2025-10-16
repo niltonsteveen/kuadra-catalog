@@ -26,8 +26,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
-      <body className={`${manrope.variable} ${plexMono.variable} font-sans antialiased`}>
+    <html lang="es" suppressHydrationWarning>
+      <body
+        suppressHydrationWarning
+        className={`${manrope.variable} ${plexMono.variable} font-sans antialiased`}
+      >
         <ClientHydration />
         {children}
         <ThemeToggle />
