@@ -67,16 +67,19 @@ export default function ProductCard({
       )}
     >
       {/* Imagen/carrusel ocupa el espacio restante (crece en hover al ocultar titulo/precio) */}
-      <Card className="relative flex-1 overflow-hidden">
+      <Card className="relative flex-1 overflow-hidden bg-transparent">
         <Carousel className="w-full h-full" opts={{ loop: true }}>
-          <CarouselContent>
+          <CarouselContent className="h-full">
             {imageUrls.map((url, index) => (
-              <CarouselItem key={index} className="relative h-full w-full">
+              <CarouselItem
+                key={index}
+                className="relative h-full w-full bg-center"
+              >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={url}
                   alt={`${title} ${index + 1}`}
-                  className="h-full w-full object-cover bg-gray-200"
+                  className="h-full w-full object-cover bg-transparent bg-center"
                 />
               </CarouselItem>
             ))}
@@ -84,16 +87,15 @@ export default function ProductCard({
           {/* Botones de navegación visibles solo en hover */}
           <CarouselPrevious
             aria-label="Imagen anterior"
-            className="hidden group-hover:flex"
+            className="hidden group-hover:flex hover:border-black hover:text-black"
           />
           <CarouselNext
             aria-label="Siguiente imagen"
-            className="hidden group-hover:flex"
+            className="hidden group-hover:flex hover:border-black hover:text-black"
           />
         </Carousel>
       </Card>
 
-      {/* Zona inferior sin padding global: se maneja con padding local en elementos */}
       <div className="flex flex-col">
         {/* Default: titulo + precio visibles; Hover: ocultos */}
         <div className="flex flex-col gap-xxs">
@@ -127,7 +129,7 @@ export default function ProductCard({
           <Button
             aria-label="Agregar al carrito"
             onClick={() => onAddToCart?.(id)}
-            className="mt-2 w-full transition flex items-center justify-center gap-2 modern:typo-s classic:typo-xs"
+            className="mt-xs w-full transition flex items-center justify-center gap-2 modern:typo-s classic:typo-xs"
           >
             Agregar al carrito
             <ShoppingCart size={16} />

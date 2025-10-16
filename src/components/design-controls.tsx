@@ -1089,34 +1089,33 @@ export function DesignControls(props: { initial: InitialConfig }) {
                   <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
                     Básico (no controlado)
                   </h4>
-                <SizeSelector
-                  options={[
-                    { id: "s", label: "S" },
-                    { id: "m", label: "M" },
-                    { id: "l", label: "L" },
-                    { id: "xl", label: "XL" },
-                    { id: "xxl", label: "XXL", disabled: true },
-                  ]}
-                  defaultValue="m"
-                />
+                  <SizeSelector
+                    options={[
+                      { id: "s", label: "S" },
+                      { id: "m", label: "M" },
+                      { id: "l", label: "L" },
+                      { id: "xl", label: "XL" },
+                      { id: "xxl", label: "XXL", disabled: true },
+                    ]}
+                    defaultValue="m"
+                  />
                 </div>
                 <div className="space-y-2">
                   <h4 className="text-sm font-medium text-gray-700 dark:text-gray-200">
                     Controlado
                   </h4>
-                <SizeSelector
-                  options={[
-                    { id: "s", label: "S" },
-                    { id: "m", label: "M" },
-                    { id: "l", label: "L" },
-                    { id: "xl", label: "XL" },
-                  ]}
-                  value={sizeControlled}
-                  onChange={setSizeControlled}
-                  ariaLabel="Selecciona tu talla"
-                />
+                  <SizeSelector
+                    options={[
+                      { id: "s", label: "S" },
+                      { id: "m", label: "M" },
+                      { id: "l", label: "L" },
+                      { id: "xl", label: "XL" },
+                    ]}
+                    value={sizeControlled}
+                    onChange={setSizeControlled}
+                    ariaLabel="Selecciona tu talla"
+                  />
                 </div>
-                
               </div>
             </div>
           </section>
@@ -1142,7 +1141,7 @@ export function DesignControls(props: { initial: InitialConfig }) {
             <ProductCard
               id="p-s"
               title="Product Name and other details"
-              imageUrls={["/images/placeholder.png", "/images/placeholder.png"]}
+              imageUrls={["/globe.svg", "/vercel.svg"]}
               priceType="regular"
               price="$99.900"
               size="s"
@@ -1150,7 +1149,7 @@ export function DesignControls(props: { initial: InitialConfig }) {
             <ProductCard
               id="p-s2"
               title="Product Name and other details"
-              imageUrls={["/images/placeholder.png", "/images/placeholder.png"]}
+              imageUrls={["/globe.svg", "/vercel.svg"]}
               priceType="regular"
               price="$99.900"
               size="s"
@@ -1165,7 +1164,7 @@ export function DesignControls(props: { initial: InitialConfig }) {
             <ProductCard
               id="p-m"
               title="Product Name and other details"
-              imageUrls={["/images/placeholder.png", "/images/placeholder.png"]}
+              imageUrls={["/globe.svg", "/vercel.svg"]}
               priceType="regular"
               price="$99.900"
               size="m"
@@ -1173,7 +1172,7 @@ export function DesignControls(props: { initial: InitialConfig }) {
             <ProductCard
               id="p-m2"
               title="Product Name and other details"
-              imageUrls={["/images/placeholder.png", "/images/placeholder.png"]}
+              imageUrls={["/globe.svg", "/vercel.svg"]}
               priceType="regular"
               price="$99.900"
               size="m"
@@ -1188,7 +1187,7 @@ export function DesignControls(props: { initial: InitialConfig }) {
             <ProductCard
               id="p-l"
               title="Product Name and other details"
-              imageUrls={["/images/placeholder.png", "/images/placeholder.png"]}
+              imageUrls={["/globe.svg", "/vercel.svg"]}
               priceType="regular"
               price="$99.900"
               size="l"
@@ -1196,7 +1195,7 @@ export function DesignControls(props: { initial: InitialConfig }) {
             <ProductCard
               id="p-l2"
               title="Product Name and other details"
-              imageUrls={["/images/placeholder.png", "/images/placeholder.png"]}
+              imageUrls={["/globe.svg", "/vercel.svg"]}
               priceType="regular"
               price="$99.900"
               size="l"
