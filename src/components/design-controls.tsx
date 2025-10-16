@@ -63,6 +63,7 @@ import { Plus } from "lucide-react";
 import SizeSelector from "@/components/ui/size-selector";
 import CheckoutProductCard from "@/components/checkout/checkout-product-card";
 import ProductCard from "@/components/catalog/product-card";
+import TopBarGeneral from "@/components/topbar/topbar-general";
 const SEMANTIC_TONES = [
   "50",
   "100",
@@ -1133,6 +1134,38 @@ export function DesignControls(props: { initial: InitialConfig }) {
             quantity={1}
             onIncrement={() => {}}
             onDecrement={() => {}}
+          />
+        </div>
+        <div
+          className={`${ADAPTIVE_ROUNDED} border p-6 space-y-4 bg-gray-100 dark:bg-transparent`}
+        >
+          <h3 className="text-lg font-semibold">Top Bar</h3>
+          <TopBarGeneral
+            logo={<div className="h-8 w-20 bg-gray-300 rounded-md" />}
+            menuItems={[
+              { id: "home", label: "Inicio", href: "/" },
+              { id: "cat1", label: "Categoría 1" },
+              { id: "cat2", label: "Categoría 2" },
+              { id: "cat3", label: "Categoría 3" },
+              { id: "cat4", label: "Categoría 4" },
+              { id: "cat5", label: "Categoría 5" },
+              { id: "cat6", label: "Categoría 6" },
+            ]}
+            activeId="home"
+          />
+          <TopBarGeneral
+            logo={<div className="h-8 w-20 bg-gray-300 rounded-md" />}
+            menuItems={[
+              { id: "home", label: "Inicio", href: "/" },
+              { id: "cat1", label: "Categoría 1" },
+              { id: "cat2", label: "Categoría 2" },
+              { id: "cat3", label: "Categoría 3" },
+              { id: "cat4", label: "Categoría 4" },
+              { id: "cat5", label: "Categoría 5" },
+              { id: "cat6", label: "Categoría 6" },
+            ]}
+            activeId="home"
+            forceMobile
           />
         </div>
         <div className={`${ADAPTIVE_ROUNDED} border p-6 space-y-6`}>
